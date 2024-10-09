@@ -1,5 +1,5 @@
 
-export class Question
+export class QuestionRebooter
 {
 	constructor
 	(
