@@ -18,6 +18,8 @@ export abstract class PlayingRebooter implements InitializerInterface
 
 	initialize (): void
 	{
+		this.filterMutation();
+
 		this.listener.observe(this.tag_playing, {
 			attributeFilter : [ 'class' ],
 			attributes      : true
