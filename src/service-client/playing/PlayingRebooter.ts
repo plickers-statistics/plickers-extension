@@ -1,8 +1,8 @@
 
-import { InitializerInterface } from 'src/tools-initializer/InitializerInterface';
+import { InitializerAbstract } from 'src/tools-initializer/InitializerAbstract';
 
 
-export abstract class PlayingRebooter implements InitializerInterface
+export abstract class PlayingRebooter extends InitializerAbstract
 {
 	private declare readonly listener;
 
@@ -13,11 +13,15 @@ export abstract class PlayingRebooter implements InitializerInterface
 		protected readonly tag_playing: HTMLDivElement
 	)
 	{
+		super();
+
 		this.listener = new MutationObserver(() => this.filterMutation());
 	}
 
-	initialize (): void
+	public override initialize (): void
 	{
+		super.initialize();
+
 		this.filterMutation();
 
 		this.listener.observe(this.tag_playing, {
@@ -26,8 +30,10 @@ export abstract class PlayingRebooter implements InitializerInterface
 		});
 	}
 
-	destroy (): void
+	public override destroy (): void
 	{
+		super.destroy();
+
 		this.listener.disconnect();
 	}
 }
