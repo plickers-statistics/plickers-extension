@@ -1,5 +1,8 @@
 
-export abstract class PlayingRebooter
+import { InitializerInterface } from 'src/tools-initializer/InitializerInterface';
+
+
+export abstract class PlayingRebooter implements InitializerInterface
 {
 	private declare readonly listener;
 
