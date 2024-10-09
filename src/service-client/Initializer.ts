@@ -3,7 +3,7 @@ import { Question } from './Question';
 import { Rebooter } from './Rebooter';
 
 
-function hasPlayingContainer (node: Node): node is HTMLDivElement
+function isPlayingContainer (node: Node): node is HTMLDivElement
 {
 	return node instanceof HTMLDivElement
 		&& node.classList.contains('nowPlayingContainer');
@@ -17,7 +17,7 @@ export class Initializer extends Rebooter
 	{
 		for (const addedNode of mutation.addedNodes)
 		{
-			if (hasPlayingContainer(addedNode))
+			if (isPlayingContainer(addedNode))
 			{
 				this.question = new Question(addedNode);
 				this.question.initialize();
@@ -28,7 +28,7 @@ export class Initializer extends Rebooter
 
 		for (const removedNode of mutation.removedNodes)
 		{
-			if (hasPlayingContainer(removedNode))
+			if (isPlayingContainer(removedNode))
 			{
 				this.question?.destroy();
 				delete this.question;
