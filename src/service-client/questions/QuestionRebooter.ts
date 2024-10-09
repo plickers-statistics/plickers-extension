@@ -15,8 +15,6 @@ export abstract class QuestionRebooter
 
 	initialize (): void
 	{
-		console.debug('initialize', this);
-
 		this.listener.observe(this.tag_playing, {
 			attributeFilter : [ 'class' ],
 			attributes      : true
@@ -25,8 +23,6 @@ export abstract class QuestionRebooter
 
 	destroy (): void
 	{
-		console.debug('destroy', this);
-
 		this.listener.disconnect();
 	}
 }
