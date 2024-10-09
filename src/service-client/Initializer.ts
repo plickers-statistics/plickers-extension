@@ -15,6 +15,7 @@ export class Initializer extends Rebooter
 
 	protected override filterMutation (mutation: MutationRecord): void
 	{
+		// initialize
 		for (const addedNode of mutation.addedNodes)
 		{
 			if (isPlayingContainer(addedNode))
@@ -28,6 +29,7 @@ export class Initializer extends Rebooter
 			}
 		}
 
+		// destroy
 		for (const removedNode of mutation.removedNodes)
 		{
 			if (isPlayingContainer(removedNode))
