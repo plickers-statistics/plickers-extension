@@ -3,7 +3,7 @@ export class Question
 {
 	constructor
 	(
-		private readonly tag_container: HTMLDivElement
+		private readonly tag_playing: HTMLDivElement
 	)
 	{
 	}

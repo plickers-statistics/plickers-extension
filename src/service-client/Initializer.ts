@@ -1,5 +1,5 @@
 
-import { Question } from './Question';
+import { Question } from './questions/Question';
 import { Rebooter } from './Rebooter';
 
 
@@ -19,7 +19,9 @@ export class Initializer extends Rebooter
 		{
 			if (isPlayingContainer(addedNode))
 			{
-				this.question = new Question(addedNode);
+				const tag_playing = addedNode.querySelectorWithCheck('div.nowPlaying', HTMLDivElement);
+
+				this.question = new Question(tag_playing);
 				this.question.initialize();
 
 				break;
