@@ -1,5 +1,5 @@
 
-export abstract class QuestionRebooter
+export abstract class PlayingRebooter
 {
 	private declare readonly listener;
 

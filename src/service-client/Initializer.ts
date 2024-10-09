@@ -1,5 +1,5 @@
 
-import { Question } from './questions/Question';
+import { Playing } from './playing/Playing';
 import { Rebooter } from './Rebooter';
 
 
@@ -11,7 +11,7 @@ function isPlayingContainer (node: Node): node is HTMLDivElement
 
 export class Initializer extends Rebooter
 {
-	private question ?: Question;
+	private playing ?: Playing;
 
 	protected override filterMutation (mutation: MutationRecord): void
 	{
@@ -21,8 +21,8 @@ export class Initializer extends Rebooter
 			{
 				const tag_playing = addedNode.querySelectorWithCheck('div.nowPlaying', HTMLDivElement);
 
-				this.question = new Question(tag_playing);
-				this.question.initialize();
+				this.playing = new Playing(tag_playing);
+				this.playing.initialize();
 
 				break;
 			}
@@ -32,8 +32,8 @@ export class Initializer extends Rebooter
 		{
 			if (isPlayingContainer(removedNode))
 			{
-				this.question?.destroy();
-				delete this.question;
+				this.playing?.destroy();
+				delete this.playing;
 
 				break;
 			}
