@@ -1,5 +1,5 @@
 
-import { isPlayingContainer } from './playing/isPlayingContainer';
+import { isTagPlaying } from './playing/isTagPlaying';
 import { Playing } from './playing/Playing';
 
 import { Rebooter } from './Rebooter';
@@ -14,7 +14,7 @@ export class Initializer extends Rebooter
 		// initialize
 		for (const addedNode of mutation.addedNodes)
 		{
-			if (isPlayingContainer(addedNode))
+			if (isTagPlaying(addedNode))
 			{
 				const tag_playing = addedNode.querySelectorWithCheck('div.nowPlaying', HTMLDivElement);
 
@@ -28,7 +28,7 @@ export class Initializer extends Rebooter
 		// destroy
 		for (const removedNode of mutation.removedNodes)
 		{
-			if (isPlayingContainer(removedNode))
+			if (isTagPlaying(removedNode))
 			{
 				this.playing?.destroy();
 				delete this.playing;
