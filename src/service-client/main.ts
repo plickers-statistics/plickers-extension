@@ -1,5 +1,5 @@
 
-import { Initializer } from './Initializer';
+import { Initializer } from './initializer/Initializer';
 
 
 const tag_root    = document.querySelectorWithCheck('div#root', HTMLDivElement);

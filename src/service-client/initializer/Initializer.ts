@@ -1,11 +1,11 @@
 
-import { isTagPlaying } from './playing/isTagPlaying';
-import { Playing } from './playing/Playing';
+import { isTagPlaying } from '../playing/isTagPlaying';
+import { Playing } from '../playing/Playing';
 
-import { Rebooter } from './Rebooter';
+import { InitializerRebooter } from './InitializerRebooter';
 
 
-export class Initializer extends Rebooter
+export class Initializer extends InitializerRebooter
 {
 	private playing ?: Playing;
 
