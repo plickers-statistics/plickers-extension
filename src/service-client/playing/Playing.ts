@@ -1,6 +1,6 @@
 
 import { getQuestionHandler } from '../questions/getQuestionHandler';
-import { isQuestionContainer } from '../questions/isQuestionContainer';
+import { isTagQuestion } from '../questions/isTagQuestion';
 import { QuestionAbstract } from '../questions/QuestionAbstract';
 
 import { PlayingRebooter } from './PlayingRebooter';
@@ -56,7 +56,7 @@ export class Playing extends PlayingRebooter
 		// re-initialize
 		for (const addedNode of mutation.addedNodes)
 		{
-			if (isQuestionContainer(addedNode))
+			if (isTagQuestion(addedNode))
 			{
 				this.question?.destroy();
 
