@@ -37,4 +37,12 @@ export class Initializer extends Rebooter
 			}
 		}
 	}
+
+	public override destroy (): void
+	{
+		super.destroy();
+
+		this.playing?.destroy();
+		delete this.playing;
+	}
 }
