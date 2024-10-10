@@ -1,24 +1,21 @@
 
-export abstract class Rebooter
+import { MutationFilter } from 'src/tools-mutation/MutationFilter';
+
+
+export abstract class Rebooter extends MutationFilter
 {
-	private declare readonly tag_root;
-	private declare readonly listener;
-
-	protected abstract filterMutation (mutation: MutationRecord): void;
-
-	private filterMutations (mutations: MutationRecord[]): void
+	public constructor
+	(
+		private readonly tag_root: HTMLDivElement
+	)
 	{
-		for (const mutation of mutations)
-		{
-			this.filterMutation(mutation);
-		}
+		super();
 	}
 
-	constructor ()
+	public override initialize (): void
 	{
-		this.tag_root = document.querySelectorWithCheck('div#root', HTMLDivElement);
+		super.initialize();
 
-		this.listener = new MutationObserver(mutations => this.filterMutations(mutations));
 		this.listener.observe(this.tag_root, {
 			childList: true
 		});

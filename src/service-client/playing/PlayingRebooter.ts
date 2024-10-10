@@ -1,21 +1,15 @@
 
-import { InitializerAbstract } from 'src/tools-initializer/InitializerAbstract';
+import { MutationFilter } from 'src/tools-mutation/MutationFilter';
 
 
-export abstract class PlayingRebooter extends InitializerAbstract
+export abstract class PlayingRebooter extends MutationFilter
 {
-	private declare readonly listener;
-
-	protected abstract filterMutation (): void;
-
-	constructor
+	public constructor
 	(
 		protected readonly tag_playing: HTMLDivElement
 	)
 	{
 		super();
-
-		this.listener = new MutationObserver(() => this.filterMutation());
 	}
 
 	public override initialize (): void
@@ -25,15 +19,12 @@ export abstract class PlayingRebooter extends InitializerAbstract
 		this.filterMutation();
 
 		this.listener.observe(this.tag_playing, {
+			// change question status
 			attributeFilter : [ 'class' ],
-			attributes      : true
+			attributes      : true,
+
+			// another question
+			childList: true
 		});
-	}
-
-	public override destroy (): void
-	{
-		super.destroy();
-
-		this.listener.disconnect();
 	}
 }
