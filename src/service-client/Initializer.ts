@@ -1,13 +1,8 @@
 
+import { isPlayingContainer } from './playing/isPlayingContainer';
 import { Playing } from './playing/Playing';
 import { Rebooter } from './Rebooter';
 
-
-function isPlayingContainer (node: Node): node is HTMLDivElement
-{
-	return node instanceof HTMLDivElement
-		&& node.classList.contains('nowPlayingContainer');
-}
 
 export class Initializer extends Rebooter
 {
