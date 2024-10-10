@@ -16,8 +16,6 @@ export abstract class PlayingRebooter extends MutationFilter
 	{
 		super.initialize();
 
-		this.filterMutation();
-
 		this.listener.observe(this.tag_playing, {
 			// change question status
 			attributeFilter : [ 'class' ],
