@@ -3,9 +3,9 @@ import { QuestionAbstract } from './QuestionAbstract';
 import { QuestionMultipleChoice } from './QuestionMultipleChoice';
 
 
-export function getQuestionHandler (tag_playing: HTMLDivElement): QuestionAbstract
+export function getQuestionHandler (tag_slide_states: HTMLDivElement): QuestionAbstract
 {
-	const tag_slide = tag_playing.querySelectorWithCheck('div.slide', HTMLDivElement);
+	const tag_slide = tag_slide_states.querySelectorWithCheck('div.slide', HTMLDivElement);
 
 	/**
 	 * classes:
