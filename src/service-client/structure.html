@@ -1,14 +1,19 @@
 
 <!-- page structure documentation -->
-<!-- format: section | additions -->
+<!-- format: class | additions -->
 
 
-<div id="root"> <!-- initializer | MutationObserver { childList } -->
+<div id="root">                                                    <!-- Initializer            | MutationObserver { childList } -->
 	<div class="nowPlayingContainer">
-		<div class="nowPlaying"> <!-- rooms | MutationObserver { childList } -->
+		<div class="nowPlaying">                                   <!-- Room                   | MutationObserver { childList } -->
 			<div class="nowPlaying-slideContainerOuter">
-				<div class="nowPlaying-slideContainerInner"> <!-- questions-states | MutationObserver { attributes: ['class'] } -->
-					<div class="slide"></div> <!-- questions -->
+				<div class="nowPlaying-slideContainerInner">       <!-- QuestionStates         | MutationObserver { attributes: ['class'] } -->
+					<div class="slide">                            <!-- QuestionMultipleChoice -->
+						<div class="slide-body"></div>
+						<div class="slide-choices">                <!-- SelectionButtons -->
+							<button class="slide-choice"></button> <!-- SelectionButton        | MutationObserver { attributes: ['class'] } -->
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
