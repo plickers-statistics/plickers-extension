@@ -2,10 +2,10 @@
 import { isTagQuestion } from '../questions-states/isTagQuestion';
 import { QuestionStates } from '../questions-states/QuestionStates';
 
-import { PlayingRebooter } from './PlayingRebooter';
+import { RoomRebooter } from './RoomRebooter';
 
 
-export class Playing extends PlayingRebooter
+export class Room extends RoomRebooter
 {
 	private question_states ?: QuestionStates;
 

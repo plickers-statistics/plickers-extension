@@ -2,7 +2,7 @@
 import { MutationFilter } from 'src/tools-mutation/MutationFilter';
 
 
-export abstract class PlayingRebooter extends MutationFilter
+export abstract class RoomRebooter extends MutationFilter
 {
 	public constructor
 	(

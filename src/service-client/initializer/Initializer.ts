@@ -1,25 +1,25 @@
 
-import { isTagPlaying } from '../playing/isTagPlaying';
-import { Playing } from '../playing/Playing';
+import { isTagRoom } from '../rooms/isTagRoom';
+import { Room } from '../rooms/Room';
 
 import { InitializerRebooter } from './InitializerRebooter';
 
 
 export class Initializer extends InitializerRebooter
 {
-	private playing ?: Playing;
+	private room ?: Room;
 
 	protected override filterMutation (mutation: MutationRecord): void
 	{
 		// initialize
 		for (const addedNode of mutation.addedNodes)
 		{
-			if (isTagPlaying(addedNode))
+			if (isTagRoom(addedNode))
 			{
 				const tag_playing = addedNode.querySelectorWithCheck('div.nowPlaying', HTMLDivElement);
 
-				this.playing = new Playing(tag_playing);
-				this.playing.initialize();
+				this.room = new Room(tag_playing);
+				this.room.initialize();
 
 				break;
 			}
@@ -28,10 +28,10 @@ export class Initializer extends InitializerRebooter
 		// destroy
 		for (const removedNode of mutation.removedNodes)
 		{
-			if (isTagPlaying(removedNode))
+			if (isTagRoom(removedNode))
 			{
-				this.playing?.destroy();
-				delete this.playing;
+				this.room?.destroy();
+				delete this.room;
 
 				break;
 			}
@@ -42,7 +42,7 @@ export class Initializer extends InitializerRebooter
 	{
 		super.destroy();
 
-		this.playing?.destroy();
-		delete this.playing;
+		this.room?.destroy();
+		delete this.room;
 	}
 }
