@@ -4,9 +4,11 @@ import { InitializerAbstract } from 'src/tools-initializer/InitializerAbstract';
 
 export abstract class MutationFilter extends InitializerAbstract
 {
-	protected abstract filterMutation (mutation: MutationRecord): void;
+	protected filterMutation (mutation: MutationRecord): void
+	{
+	}
 
-	private filterMutations (mutations: MutationRecord[]): void
+	protected filterMutations (mutations: MutationRecord[]): void
 	{
 		for (const mutation of mutations)
 		{
