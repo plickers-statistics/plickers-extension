@@ -1,80 +1,37 @@
 
-import { getQuestionHandler } from '../questions/getQuestionHandler';
-import { isTagQuestion } from '../questions/isTagQuestion';
-import { QuestionAbstract } from '../questions/QuestionAbstract';
+import { isTagQuestion } from '../questions-states/isTagQuestion';
+import { QuestionStates } from '../questions-states/QuestionStates';
 
 import { PlayingRebooter } from './PlayingRebooter';
-import { PlayingStates } from './PlayingStates';
 
 
 export class Playing extends PlayingRebooter
 {
-	private question ?: QuestionAbstract;
+	private question_states ?: QuestionStates;
 
-	/** change question status */
-	private filterAttributes (): void
+	private restart (): void
 	{
-		// ===== ===== ===== ===== =====
-		// initialize
-		// ===== ===== ===== ===== =====
+		const tag_slide_states = this.tag_playing.querySelector('div.nowPlaying-slideContainerInner');
 
-		const is_preview = this.tag_playing.classList.contains(PlayingStates.PREVIEW);
-		const is_options = this.tag_playing.classList.contains(PlayingStates.OPTIONS);
-
-		if (is_preview || is_options)
+		if (tag_slide_states instanceof HTMLDivElement)
 		{
-			this.question = getQuestionHandler(this.tag_playing);
-			this.question.initialize();
+			this.question_states?.destroy();
+			delete this.question_states;
 
-			return;
-		}
-
-		// ===== ===== ===== ===== =====
-		// destroy
-		// ===== ===== ===== ===== =====
-
-		const is_waiting = this.tag_playing.classList.contains(PlayingStates.WAITING);
-
-		if (is_waiting)
-		{
-			this.question?.destroy();
-			delete this.question;
-
-			return;
-		}
-
-		// ===== ===== ===== ===== =====
-		// unknown
-		// ===== ===== ===== ===== =====
-
-		throw new TypeError();
-	}
-
-	/** another question */
-	private filterElements (mutation: MutationRecord): void
-	{
-		// re-initialize
-		for (const addedNode of mutation.addedNodes)
-		{
-			if (isTagQuestion(addedNode))
-			{
-				this.question?.destroy();
-
-				this.question = getQuestionHandler(this.tag_playing);
-				this.question.initialize();
-			}
+			this.question_states = new QuestionStates(tag_slide_states);
+			this.question_states.initialize();
 		}
 	}
 
 	protected override filterMutation (mutation: MutationRecord): void
 	{
-		switch (mutation.type)
+		for (const addedNode of mutation.addedNodes)
 		{
-			case 'attributes': return this.filterAttributes();
-			case 'childList':  return this.filterElements(mutation);
+			if (isTagQuestion(addedNode))
+			{
+				this.restart();
+			}
 		}
-
-		throw new TypeError();
 	}
 
 	// ===== ===== ===== ===== =====
@@ -83,14 +40,14 @@ export class Playing extends PlayingRebooter
 	{
 		super.initialize();
 
-		this.filterAttributes();
+		this.restart();
 	}
 
 	public override destroy (): void
 	{
 		super.destroy();
 
-		this.question?.destroy();
-		delete this.question;
+		this.question_states?.destroy();
+		delete this.question_states;
 	}
 }
