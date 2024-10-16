@@ -6,7 +6,7 @@ export abstract class SelectionButtonListener extends MutationFilter
 {
 	public constructor
 	(
-		private readonly tag_slide_choice: HTMLButtonElement
+		protected readonly tag_slide_choice: HTMLButtonElement
 	)
 	{
 		super();

@@ -6,7 +6,7 @@ import { SelectionButton } from './SelectionButton';
 
 export abstract class SelectionButtonsCollection extends InitializerAbstract
 {
-	private readonly collection: SelectionButton[] = [];
+	protected readonly collection: SelectionButton[] = [];
 
 	public constructor
 	(

@@ -1,9 +1,16 @@
 
 import { InitializerAbstract } from 'src/tools-initializer/InitializerAbstract';
+import { SerializerJSON, SerializerInterface } from 'src/tools-serializer/SerializerInterface';
 
 
-export abstract class QuestionAbstract extends InitializerAbstract
+export interface QuestionJSON extends SerializerJSON
 {
+}
+
+export abstract class QuestionAbstract extends InitializerAbstract implements SerializerInterface
+{
+	public abstract serializeToJSON (): QuestionJSON;
+
 	public abstract set is_review (state: boolean);
 
 	public constructor
