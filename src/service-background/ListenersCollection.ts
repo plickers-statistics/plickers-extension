@@ -1,8 +1,6 @@
 
 import browser from 'webextension-polyfill';
 
-import { isEmptyDTO } from 'src/tools-packages/EmptyDTO';
-
 import { Listener } from './Listener';
 
 
@@ -20,7 +18,7 @@ export class ListenersCollection
 	{
 		const listener = new Listener(connection);
 
-		listener.transfer.bind('disconnect', isEmptyDTO, () => this.onDisconnect(listener));
+		connection.onDisconnect.addListener(() => this.onDisconnect(listener));
 
 		this.collection.push(listener);
 	}

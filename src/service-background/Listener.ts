@@ -1,16 +1,32 @@
 
-import { TransferBackgroundEvents, TransferClientEvents } from 'src/tools-transfer/TransferEvents';
-import { TransferListener } from 'src/tools-transfer/TransferListener';
+import { WebSocketTasks } from 'src/tools-websocket-tasks/WebSocketTasks';
 
 import { Runtime } from 'webextension-polyfill';
 
 
 export class Listener
 {
-	public declare readonly transfer;
+	private readonly websocket = new WebSocketTasks('ws://127.0.0.1:8000/api/ws');
 
-	public constructor (connection: Runtime.Port)
+	public constructor
+	(
+		private readonly connection: Runtime.Port
+	)
 	{
-		this.transfer = new TransferListener<TransferBackgroundEvents, TransferClientEvents>(connection);
+		this.connection.onDisconnect.addListener(() => this.websocket.close());
+		this.websocket.addEventListener('close', () => this.connection.disconnect());
+
+		// ===== ===== ===== ===== =====
+
+		this.connection.onMessage.addListener(message => {
+			this.websocket.send(JSON.stringify(message));
+		});
+
+		this.websocket.addEventListener('message', ev => {
+			const message = ev.data;
+			const data    = JSON.parse(message);
+
+			this.connection.postMessage(data);
+		});
 	}
 }
