@@ -1,4 +1,7 @@
 
+import { QuestionDTO } from 'src/tools-packages/QuestionDTO';
+
+
 export interface TransferEvents
 {
 	'disconnect' : undefined[];
@@ -11,4 +14,5 @@ export interface TransferBackgroundEvents extends TransferEvents
 
 export interface TransferClientEvents extends TransferEvents
 {
+	'new-question': QuestionDTO[];
 }

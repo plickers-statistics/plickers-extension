@@ -1,5 +1,7 @@
 
 import { SerializerInterface } from 'src/tools-serializer/SerializerInterface';
+import { TransferClientEvents, TransferBackgroundEvents } from 'src/tools-transfer/TransferEvents';
+import { TransferListener } from 'src/tools-transfer/TransferListener';
 
 import { isTagQuestion } from '../questions-states/isTagQuestion';
 import { QuestionStates } from '../questions-states/QuestionStates';
@@ -15,6 +17,18 @@ export class Room extends RoomRebooter implements SerializerInterface
 {
 	private question_states ?: QuestionStates;
 	private room_info       ?: RoomInfo;
+	private transfer        ?: TransferListener<TransferClientEvents, TransferBackgroundEvents>;
+
+	private close (): void
+	{
+		delete this.room_info;
+
+		this.question_states?.destroy();
+		delete this.question_states;
+
+		this.transfer?.close();
+		delete this.transfer;
+	}
 
 	private restart (): void
 	{
@@ -22,13 +36,15 @@ export class Room extends RoomRebooter implements SerializerInterface
 
 		if (tag_slide_states instanceof HTMLDivElement)
 		{
-			this.question_states?.destroy();
-			delete this.question_states;
+			this.close();
 
 			this.room_info = new RoomInfo(this.tag_playing);
 
 			this.question_states = new QuestionStates(tag_slide_states);
 			this.question_states.initialize();
+
+			this.transfer = new TransferListener();
+			this.transfer.send('new-question', this.serializeToJSON());
 		}
 	}
 
@@ -48,16 +64,13 @@ export class Room extends RoomRebooter implements SerializerInterface
 	public override initialize (): void
 	{
 		super.initialize();
-
 		this.restart();
 	}
 
 	public override destroy (): void
 	{
 		super.destroy();
-
-		this.question_states?.destroy();
-		delete this.question_states;
+		this.close();
 	}
 
 	public serializeToJSON (): RoomJSON
