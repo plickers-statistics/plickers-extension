@@ -21,8 +21,7 @@ export class TransferListener
 	{
 		super(connection);
 
-		this.events.addListener('disconnect', ()      => this.connection.disconnect());
-		this.events.addListener('message',    message => isPackage(message) && this.events.emit(message.type, message.data));
+		this.events.addListener('message', message => isPackage(message) && this.events.emit(message.type, message.data));
 
 		this.connection.onDisconnect.addListener(()      => this.events.emit('disconnect'));
 		this.connection.onMessage   .addListener(message => this.events.emit('message', message));
