@@ -30,14 +30,12 @@ export class Room extends RoomRebooter implements SerializerInterface
 		delete this.transfer;
 	}
 
-	private restart (): void
+	private open (): void
 	{
 		const tag_slide_states = this.tag_playing.querySelector('div.nowPlaying-slideContainerInner');
 
 		if (tag_slide_states instanceof HTMLDivElement)
 		{
-			this.close();
-
 			this.room_info = new RoomInfo(this.tag_playing);
 
 			this.question_states = new QuestionStates(tag_slide_states);
@@ -48,23 +46,25 @@ export class Room extends RoomRebooter implements SerializerInterface
 		}
 	}
 
+	// ===== ===== ===== ===== =====
+
+	/** next question (restart) */
 	protected override filterMutation (mutation: MutationRecord): void
 	{
 		for (const addedNode of mutation.addedNodes)
 		{
 			if (isTagQuestion(addedNode))
 			{
-				this.restart();
+				this.close();
+				this.open();
 			}
 		}
 	}
 
-	// ===== ===== ===== ===== =====
-
 	public override initialize (): void
 	{
 		super.initialize();
-		this.restart();
+		this.open();
 	}
 
 	public override destroy (): void
@@ -72,6 +72,8 @@ export class Room extends RoomRebooter implements SerializerInterface
 		super.destroy();
 		this.close();
 	}
+
+	// ===== ===== ===== ===== =====
 
 	public serializeToJSON (): RoomJSON
 	{
