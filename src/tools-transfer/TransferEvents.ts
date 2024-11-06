@@ -1,5 +1,5 @@
 
-import { QuestionDTO } from 'src/tools-packages/QuestionDTO';
+import { QuestionDTO } from 'src/tools-DTOs/QuestionDTO';
 
 
 export interface TransferEvents

@@ -2,7 +2,7 @@
 import { EventEmitter } from 'events';
 import { Runtime } from 'webextension-polyfill';
 
-import { isPackageDTO } from 'src/tools-packages/PackageDTO';
+import { isPackageDTO } from 'src/tools-DTOs/PackageDTO';
 
 import { Transfer } from './Transfer';
 import { TransferEvents } from './TransferEvents';
