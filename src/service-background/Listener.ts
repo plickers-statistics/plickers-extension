@@ -18,10 +18,12 @@ export class Listener
 
 		// ===== ===== ===== ===== =====
 
+		// port => websocket
 		this.connection.onMessage.addListener(message => {
 			this.websocket.send(JSON.stringify(message));
 		});
 
+		// websocket => port
 		this.websocket.addEventListener('message', ev => {
 			const message = ev.data;
 			const data    = JSON.parse(message);
