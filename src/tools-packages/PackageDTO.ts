@@ -2,13 +2,13 @@
 import { isObject } from 'src/tools-types/Object';
 
 
-export interface PackageInterface
+export interface PackageDTO
 {
 	type  : string,
 	data ?: unknown
 }
 
-export function isPackage (obj: unknown): obj is PackageInterface
+export function isPackageDTO (obj: unknown): obj is PackageDTO
 {
 	return isObject(obj)
 		&& typeof obj.type === 'string';

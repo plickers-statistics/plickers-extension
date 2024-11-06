@@ -2,7 +2,7 @@
 import { EventEmitter } from 'events';
 import { Runtime } from 'webextension-polyfill';
 
-import { isPackage } from 'src/tools-packages/Package';
+import { isPackageDTO } from 'src/tools-packages/PackageDTO';
 
 import { Transfer } from './Transfer';
 import { TransferEvents } from './TransferEvents';
@@ -21,7 +21,7 @@ export class TransferListener
 	{
 		super(connection);
 
-		this.events.addListener('message', message => isPackage(message) && this.events.emit(message.type, message.data));
+		this.events.addListener('message', message => isPackageDTO(message) && this.events.emit(message.type, message.data));
 
 		this.connection.onDisconnect.addListener(()      => this.events.emit('disconnect'));
 		this.connection.onMessage   .addListener(message => this.events.emit('message', message));
