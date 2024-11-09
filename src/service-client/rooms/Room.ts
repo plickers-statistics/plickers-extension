@@ -30,11 +30,11 @@ export class Room extends RoomRebooter implements SerializerInterface
 		delete TransferClientInstance.transfer;
 	}
 
-	private open (tag_question_container ?: HTMLDivElement): void
+	private open (tag_question_container: HTMLDivElement): void
 	{
 		// При открытии следующего вопроса => доступны одновременно 2 вопроса (старый и новый).
 		// Это костыль, но другого варианта различать теги => нет.
-		const tag_slide = (tag_question_container || this.tag_playing).querySelector('div.slide');
+		const tag_slide = tag_question_container.querySelector('div.slide');
 
 		if (tag_slide instanceof HTMLDivElement)
 		{
@@ -66,7 +66,7 @@ export class Room extends RoomRebooter implements SerializerInterface
 	public override initialize (): void
 	{
 		super.initialize();
-		this.open();
+		this.open(this.tag_playing);
 	}
 
 	public override destroy (): void
