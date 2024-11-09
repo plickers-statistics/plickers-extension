@@ -22,7 +22,15 @@ export class Transfer<TEvents extends TransferEvents>
 	{
 		const message = { type, data };
 
-		this.connection.postMessage(message);
-		console.debug('message sent', message);
+		try
+		{
+			this.connection.postMessage(message);
+			console.debug('[Background PORT] message sent', message);
+		}
+		catch (error)
+		{
+			console.debug('[Background PORT] message not sent', message);
+			throw error;
+		}
 	}
 }
