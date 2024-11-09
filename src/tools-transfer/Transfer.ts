@@ -18,7 +18,7 @@ export class Transfer<TEvents extends TransferEvents>
 		return this.connection.disconnect();
 	}
 
-	public send (type: keyof TEvents, data ?: unknown): void
+	public send <TKey extends keyof TEvents>(type: TKey, data: TEvents[TKey]): void
 	{
 		const message = { type, data };
 
