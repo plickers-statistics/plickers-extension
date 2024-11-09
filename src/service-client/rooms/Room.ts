@@ -2,9 +2,9 @@
 import { SerializerInterface } from 'src/tools-serializer/SerializerInterface';
 import { TransferListener } from 'src/tools-transfer/TransferListener';
 
+import { getQuestionHandler } from '../questions/getQuestionHandler';
 import { isTagQuestion } from '../questions/isTagQuestion';
-import { QuestionStates } from '../questions-states/QuestionStates';
-import { QuestionJSON } from '../questions/QuestionAbstract';
+import { QuestionJSON, QuestionAbstract } from '../questions/QuestionAbstract';
 
 import { TransferClientInstance } from '../transfer/TransferClientInstance';
 
@@ -16,15 +16,15 @@ export type RoomJSON = QuestionJSON & RoomInfoJSON;
 
 export class Room extends RoomRebooter implements SerializerInterface
 {
-	private question_states ?: QuestionStates;
-	private room_info       ?: RoomInfo;
+	private question  ?: QuestionAbstract;
+	private room_info ?: RoomInfo;
 
 	private close (): void
 	{
 		delete this.room_info;
 
-		this.question_states?.destroy();
-		delete this.question_states;
+		this.question?.destroy();
+		delete this.question;
 
 		TransferClientInstance.transfer?.close();
 		delete TransferClientInstance.transfer;
@@ -32,14 +32,14 @@ export class Room extends RoomRebooter implements SerializerInterface
 
 	private open (): void
 	{
-		const tag_slide_states = this.tag_playing.querySelector('div.nowPlaying-slideContainerInner');
+		const tag_slide = this.tag_playing.querySelector('div.slide');
 
-		if (tag_slide_states instanceof HTMLDivElement)
+		if (tag_slide instanceof HTMLDivElement)
 		{
 			this.room_info = new RoomInfo(this.tag_playing);
 
-			this.question_states = new QuestionStates(tag_slide_states);
-			this.question_states.initialize();
+			this.question = getQuestionHandler(tag_slide);
+			this.question.initialize();
 
 			TransferClientInstance.transfer = new TransferListener();
 			TransferClientInstance.transfer.send('new-question', this.serializeToJSON());
@@ -80,7 +80,7 @@ export class Room extends RoomRebooter implements SerializerInterface
 		return Object.assign(
 			{},
 
-			this.question_states?.serializeToJSON(),
+			this.question?.serializeToJSON(),
 			this.room_info?.serializeToJSON()
 		);
 	}
