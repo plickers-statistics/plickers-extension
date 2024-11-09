@@ -1,11 +1,12 @@
 
+import { AnswerDTO } from 'src/tools-DTOs/AnswerDTO';
 import { QuestionDTO } from 'src/tools-DTOs/QuestionDTO';
 
 
 export interface TransferEvents
 {
-	'disconnect' : undefined[];
-	'message'    : any[];
+	'disconnect' : undefined;
+	'message'    : any;
 }
 
 export interface TransferBackgroundEvents extends TransferEvents
@@ -14,5 +15,6 @@ export interface TransferBackgroundEvents extends TransferEvents
 
 export interface TransferClientEvents extends TransferEvents
 {
-	'new-question': QuestionDTO[];
+	'new-question'    : QuestionDTO;
+	'answer-selected' : AnswerDTO;
 }
