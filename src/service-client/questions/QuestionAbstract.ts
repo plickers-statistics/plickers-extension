@@ -11,8 +11,6 @@ export abstract class QuestionAbstract extends InitializerAbstract implements Se
 {
 	public abstract serializeToJSON (): QuestionJSON;
 
-	public abstract set is_review (state: boolean);
-
 	public constructor
 	(
 		protected readonly tag_slide: HTMLDivElement

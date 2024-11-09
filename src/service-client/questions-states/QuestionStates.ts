@@ -11,11 +11,6 @@ export class QuestionStates extends QuestionStatesRebooter implements Serializer
 {
 	private readonly question = getQuestionHandler(this.tag_slide_states);
 
-	protected override filterMutations (): void
-	{
-		this.question.is_review = this.tag_slide_states.classList.contains('nowPlaying-slideContainerInner--notScanning');
-	}
-
 	public override initialize (): void
 	{
 		super.initialize();

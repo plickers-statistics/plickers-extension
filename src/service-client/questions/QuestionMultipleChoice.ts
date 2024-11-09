@@ -19,10 +19,6 @@ export class QuestionMultipleChoice extends QuestionAbstract
 	private readonly formulationHTML = this.tag_slide_body.innerHTML;
 	private readonly choices = new SelectionButtons(this.tag_slide_choices);
 
-	public override set is_review (state: boolean)
-	{
-	}
-
 	public override serializeToJSON (): QuestionMultipleChoiceJSON
 	{
 		return {
