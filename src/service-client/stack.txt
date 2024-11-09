@@ -1,7 +1,8 @@
 
 main
 -> Initializer                        <- InitializerRebooter        <- MutationFilter <- InitializerAbstract
-   -> Room                            <- RoomRebooter               <- MutationFilter <- InitializerAbstract
+   -> Lobby                           <- LobbyRebooter              <- MutationFilter <- InitializerAbstract
+      -> Room                         <- RoomRebooter               <- MutationFilter <- InitializerAbstract
          -> getQuestionHandler
             -> QuestionMultipleChoice <- QuestionAbstract                             <- InitializerAbstract
                -> SelectionButtons    <- SelectionButtonsCollection                   <- InitializerAbstract

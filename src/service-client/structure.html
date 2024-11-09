@@ -3,18 +3,22 @@
 <!-- format: class | additions -->
 
 
-<div id="root">                                                    <!-- Initializer            | MutationObserver { childList } -->
-    <div class="nowPlayingContainer">
-        <div class="nowPlaying">                                   <!-- Room                   | MutationObserver { childList } -->
+<div id="root">                                          <!-- Initializer            | MutationObserver { childList } -->
+    <div class="nowPlayingContainer">                    <!-- Lobby                  | MutationObserver { childList } -->
+        <div class="nowPlaying">                         <!-- Room                   | MutationObserver { childList } -->
             <div class="nowPlaying-slideContainerOuter">
-                    <div class="slide">                            <!-- QuestionMultipleChoice -->
-                        <div class="slide-body"></div>
-                        <div class="slide-choices">                <!-- SelectionButtons -->
-                            <button class="slide-choice"></button> <!-- SelectionButton        | MutationObserver { attributes: ['class'] } -->
-                        </div>
-                    </div>
+                    <div class="slide"></div>            <!-- QuestionAbstract -->
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- questions (QuestionAbstract) -->
+
+<div class="slide">                            <!-- QuestionMultipleChoice -->
+    <div class="slide-body"></div>
+    <div class="slide-choices">                <!-- SelectionButtons -->
+        <button class="slide-choice"></button> <!-- SelectionButton        | MutationObserver { attributes: ['class'] } -->
     </div>
 </div>
