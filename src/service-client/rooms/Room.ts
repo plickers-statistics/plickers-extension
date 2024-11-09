@@ -1,11 +1,12 @@
 
 import { SerializerInterface } from 'src/tools-serializer/SerializerInterface';
-import { TransferClientEvents, TransferBackgroundEvents } from 'src/tools-transfer/TransferEvents';
 import { TransferListener } from 'src/tools-transfer/TransferListener';
 
 import { isTagQuestion } from '../questions-states/isTagQuestion';
 import { QuestionStates } from '../questions-states/QuestionStates';
 import { QuestionJSON } from '../questions/QuestionAbstract';
+
+import { TransferClientInstance } from '../transfer/TransferClientInstance';
 
 import { RoomInfoJSON, RoomInfo } from './RoomInfo';
 import { RoomRebooter } from './RoomRebooter';
@@ -17,7 +18,6 @@ export class Room extends RoomRebooter implements SerializerInterface
 {
 	private question_states ?: QuestionStates;
 	private room_info       ?: RoomInfo;
-	private transfer        ?: TransferListener<TransferClientEvents, TransferBackgroundEvents>;
 
 	private close (): void
 	{
@@ -26,8 +26,8 @@ export class Room extends RoomRebooter implements SerializerInterface
 		this.question_states?.destroy();
 		delete this.question_states;
 
-		this.transfer?.close();
-		delete this.transfer;
+		TransferClientInstance.transfer?.close();
+		delete TransferClientInstance.transfer;
 	}
 
 	private open (): void
@@ -41,8 +41,8 @@ export class Room extends RoomRebooter implements SerializerInterface
 			this.question_states = new QuestionStates(tag_slide_states);
 			this.question_states.initialize();
 
-			this.transfer = new TransferListener();
-			this.transfer.send('new-question', this.serializeToJSON());
+			TransferClientInstance.transfer = new TransferListener();
+			TransferClientInstance.transfer.send('new-question', this.serializeToJSON());
 		}
 	}
 
