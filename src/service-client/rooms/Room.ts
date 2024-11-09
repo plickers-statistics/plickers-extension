@@ -2,7 +2,7 @@
 import { SerializerInterface } from 'src/tools-serializer/SerializerInterface';
 import { TransferListener } from 'src/tools-transfer/TransferListener';
 
-import { isTagQuestion } from '../questions-states/isTagQuestion';
+import { isTagQuestion } from '../questions/isTagQuestion';
 import { QuestionStates } from '../questions-states/QuestionStates';
 import { QuestionJSON } from '../questions/QuestionAbstract';
 
