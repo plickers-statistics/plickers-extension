@@ -25,11 +25,11 @@ export class Transfer<TEvents extends TransferEvents>
 		try
 		{
 			this.connection.postMessage(message);
-			console.debug('[Background PORT] message sent', message);
+			console.debug('[PORT | Client => Background] message sent', message);
 		}
 		catch (error)
 		{
-			console.debug('[Background PORT] message not sent', message);
+			console.debug('[PORT | Client => Background] message not sent', message);
 			throw error;
 		}
 	}
