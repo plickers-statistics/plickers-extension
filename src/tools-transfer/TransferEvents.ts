@@ -15,6 +15,8 @@ export interface TransferBackgroundEvents extends TransferEvents
 
 export interface TransferClientEvents extends TransferEvents
 {
+	'check-update' : string;
+
 	'new-question'    : QuestionDTO;
 	'answer-selected' : AnswerDTO;
 }

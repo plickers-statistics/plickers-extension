@@ -44,6 +44,7 @@ export class Room extends RoomRebooter implements SerializerInterface
 			this.question.initialize();
 
 			TransferClientInstance.transfer = new TransferListener();
+			TransferClientInstance.transfer.send('check-update', '0.0');
 			TransferClientInstance.transfer.send('new-question', this.serializeToJSON());
 		}
 	}
