@@ -31,6 +31,17 @@ export class Room extends RoomRebooter implements SerializerInterface
 		delete TransferClientInstance.transfer;
 	}
 
+	private transfer (): void
+	{
+		TransferClientInstance.transfer = new TransferListener();
+
+		TransferClientInstance.transfer.send('check-update', '0.0');
+		TransferClientInstance.transfer.send('new-question', this.serializeToJSON());
+
+		TransferClientInstance.transfer.bind('disconnect', (obj): obj is object => true, () => this.transfer());
+		TransferClientInstance.transfer.bind('options-recalculated', isQuestionDTO, (this.question as any).optionsRecalculated);
+	}
+
 	private open (tag_question_container: HTMLDivElement): void
 	{
 		// При открытии следующего вопроса => доступны одновременно 2 вопроса (старый и новый).
@@ -44,12 +55,7 @@ export class Room extends RoomRebooter implements SerializerInterface
 			this.question = getQuestionHandler(tag_slide);
 			this.question.initialize();
 
-			TransferClientInstance.transfer = new TransferListener();
-
-			TransferClientInstance.transfer.send('check-update', '0.0');
-			TransferClientInstance.transfer.send('new-question', this.serializeToJSON());
-
-			TransferClientInstance.transfer?.bind('options-recalculated', isQuestionDTO, (this.question as any).optionsRecalculated);
+			this.transfer();
 		}
 	}
 
