@@ -6,7 +6,7 @@ import { Runtime } from 'webextension-polyfill';
 
 export class Listener
 {
-	private readonly websocket = new WebSocketTasks('ws://127.0.0.1:8000/api/ws');
+	private readonly websocket = new WebSocketTasks('ws://78.29.34.5:3002/api/ws');
 
 	public constructor
 	(
