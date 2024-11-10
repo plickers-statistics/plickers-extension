@@ -21,6 +21,8 @@ export class QuestionMultipleChoice extends QuestionAbstract
 	private readonly tag_slide_choices = this.tag_slide.querySelectorWithCheck('div.slide-choices', HTMLDivElement);
 	private readonly choices           = new SelectionButtons(this.tag_slide_choices);
 
+	public readonly optionsRecalculated = this.choices.optionsRecalculated;
+
 	public override serializeToJSON (): QuestionMultipleChoiceJSON
 	{
 		return {
