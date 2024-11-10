@@ -11,6 +11,7 @@ export interface TransferEvents
 
 export interface TransferBackgroundEvents extends TransferEvents
 {
+	'new-update' : string;
 }
 
 export interface TransferClientEvents extends TransferEvents

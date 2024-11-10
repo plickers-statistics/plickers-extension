@@ -21,7 +21,8 @@ export class TransferListener
 	{
 		super(connection);
 
-		this.events.addListener('message', message => isPackageDTO(message) && this.events.emit(message.type, message.data));
+		this.events.addListener('new-update', version => alert('Доступна новая версия: ' + version));
+		this.events.addListener('message',    message => isPackageDTO(message) && this.events.emit(message.type, message.data));
 
 		this.connection.onDisconnect.addListener(()      => console.debug('[PORT | Background => Client] disconnect'));
 		this.connection.onMessage   .addListener(message => console.debug('[PORT | Background => Client] message', message));
