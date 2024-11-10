@@ -9,9 +9,6 @@ import { QuestionJSON, QuestionAbstract } from './QuestionAbstract';
 
 interface QuestionMultipleChoiceJSON extends QuestionJSON
 {
-	formulationHTML : string;
-	identifier      : number;
-
 	choices: SelectionButtonJSON[];
 }
 

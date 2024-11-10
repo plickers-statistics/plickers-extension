@@ -5,6 +5,8 @@ import { SerializerJSON, SerializerInterface } from 'src/tools-serializer/Serial
 
 export interface QuestionJSON extends SerializerJSON
 {
+	formulationHTML : string;
+	identifier      : number;
 }
 
 export abstract class QuestionAbstract extends InitializerAbstract implements SerializerInterface
