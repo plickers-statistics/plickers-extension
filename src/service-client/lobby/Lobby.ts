@@ -1,5 +1,4 @@
 
-import { isTagRoom } from '../rooms/isTagRoom';
 import { Room } from '../rooms/Room';
 
 import { LobbyRebooter } from './LobbyRebooter';
