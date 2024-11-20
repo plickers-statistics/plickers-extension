@@ -1,7 +1,9 @@
 
+type TypeSendOptions = string | ArrayBufferLike | Blob | ArrayBufferView;
+
 export class WebSocketTasks extends WebSocket
 {
-	private readonly queue: any[] = [];
+	private readonly queue: TypeSendOptions[] = [];
 
 	private sendQueue (): void
 	{
@@ -13,9 +15,9 @@ export class WebSocketTasks extends WebSocket
 		this.queue.length = 0;
 	}
 
-	public constructor (url: string | URL, protocols ?: string | string[])
+	public constructor (...options: ConstructorParameters<typeof WebSocket>)
 	{
-		super(url, protocols);
+		super(...options);
 
 		const on_opened = () => {
 			this.removeEventListener('open', on_opened);
@@ -25,7 +27,7 @@ export class WebSocketTasks extends WebSocket
 		this.addEventListener('open', on_opened);
 	}
 
-	public override send (data: string | ArrayBufferLike | Blob | ArrayBufferView): void
+	public override send (data: TypeSendOptions): void
 	{
 		this.readyState === this.OPEN
 			? super.send(data)
