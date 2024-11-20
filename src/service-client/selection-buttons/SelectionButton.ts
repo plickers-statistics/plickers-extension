@@ -19,8 +19,8 @@ export class SelectionButton extends SelectionButtonListener implements Serializ
 {
 	private readonly tag_slide_choice_text = this.tag_slide_choice.querySelectorWithCheck('div.slide-choice-content', HTMLDivElement);
 
-	public readonly formulationHTML = this.tag_slide_choice_text.innerHTML;
-	public readonly identifier      = getIdentifier(this.formulationHTML);
+	private readonly formulationHTML = this.tag_slide_choice_text.innerHTML;
+	private readonly identifier      = getIdentifier(this.formulationHTML);
 
 	// ===== ===== ===== ===== =====
 

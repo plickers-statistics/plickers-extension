@@ -1,5 +1,4 @@
 
-import { isQuestionDTO } from 'src/tools-DTOs/QuestionDTO';
 import { SerializerInterface } from 'src/tools-serializer/SerializerInterface';
 import { TransferListener } from 'src/tools-transfer/TransferListener';
 
@@ -45,11 +44,8 @@ export class Room extends RoomRebooter implements SerializerInterface
 			this.question.initialize();
 
 			TransferClientInstance.transfer = new TransferListener();
-
 			TransferClientInstance.transfer.send('check-update', '0.0');
 			TransferClientInstance.transfer.send('new-question', this.serializeToJSON());
-
-			TransferClientInstance.transfer?.bind('options-recalculated', isQuestionDTO, (this.question as any).optionsRecalculated);
 		}
 	}
 
