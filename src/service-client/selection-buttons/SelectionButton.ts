@@ -24,9 +24,7 @@ export class SelectionButton extends SelectionButtonListener implements Serializ
 
 	// ===== ===== ===== ===== =====
 
-	private readonly clickHandler = () => TransferClientInstance.transfer?.send('answer-selected', {
-		identifier: this.identifier
-	});
+	private readonly clickHandler = () => this.transfer.send('new_answer', this.identifier);
 
 	private readonly updateClickListener = () => this.is_review.state
 		? this.tag_slide_choice.removeEventListener('click', this.clickHandler)

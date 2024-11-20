@@ -1,36 +1,17 @@
 
-import browser from 'webextension-polyfill';
+import { TransferClientEvents } from './TransferEvents';
+import { TransferListener } from './TransferListener';
 
-import { TransferEvents } from './TransferEvents';
 
-
-export class Transfer<TEvents extends TransferEvents>
+export class Transfer extends TransferListener
 {
-	public constructor
-	(
-		protected readonly connection = browser.runtime.connect()
-	)
-	{
-	}
+	public readonly close = this.connection.close;
 
-	public close (): void
+	public send <TKey extends keyof TransferClientEvents>(type: TKey, data: TransferClientEvents[TKey]): void
 	{
-		return this.connection.disconnect();
-	}
+		const option = { type, data };
+		const buffer = JSON.stringify(option);
 
-	public send <TKey extends keyof TEvents>(type: TKey, data: TEvents[TKey]): void
-	{
-		const message = { type, data };
-
-		try
-		{
-			this.connection.postMessage(message);
-			console.debug('[PORT | Client => Background] message sent', message);
-		}
-		catch (error)
-		{
-			console.debug('[PORT | Client => Background] message not sent', message);
-			throw error;
-		}
+		this.connection.send(buffer);
 	}
 }

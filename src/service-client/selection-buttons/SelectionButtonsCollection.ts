@@ -1,5 +1,6 @@
 
 import { InitializerAbstract } from 'src/tools-initializer/InitializerAbstract';
+import { Transfer } from 'src/tools-transfer/Transfer';
 
 import { SelectionButton } from './SelectionButton';
 
@@ -10,7 +11,8 @@ export abstract class SelectionButtonsCollection extends InitializerAbstract
 
 	public constructor
 	(
-		private readonly tag_slide_choices: HTMLDivElement
+		private readonly transfer          : Transfer,
+		private readonly tag_slide_choices : HTMLDivElement,
 	)
 	{
 		super();
@@ -26,7 +28,7 @@ export abstract class SelectionButtonsCollection extends InitializerAbstract
 
 		for (const tag_slide_choice of tags_slide_choice)
 		{
-			const selection = new SelectionButton(tag_slide_choice);
+			const selection = new SelectionButton(this.transfer, tag_slide_choice);
 			selection.initialize();
 
 			this.collection.push(selection);

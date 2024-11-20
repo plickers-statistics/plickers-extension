@@ -1,12 +1,14 @@
 
 import { MutationFilter } from 'src/tools-mutation/MutationFilter';
+import { Transfer } from 'src/tools-transfer/Transfer';
 
 
 export abstract class SelectionButtonListener extends MutationFilter
 {
 	public constructor
 	(
-		protected readonly tag_slide_choice: HTMLButtonElement
+		protected readonly transfer         : Transfer,
+		protected readonly tag_slide_choice : HTMLButtonElement,
 	)
 	{
 		super();

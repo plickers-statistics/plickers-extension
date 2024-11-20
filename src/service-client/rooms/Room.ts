@@ -1,12 +1,10 @@
 
-import { SerializerInterface } from 'src/tools-serializer/SerializerInterface';
-import { TransferListener } from 'src/tools-transfer/TransferListener';
+import { Transfer } from 'src/tools-transfer/Transfer';
+import { WebSocketTasks } from 'src/tools-websocket-tasks/WebSocketTasks';
 
 import { getQuestionHandler } from '../questions/getQuestionHandler';
 import { isTagQuestion } from '../questions/isTagQuestion';
 import { QuestionJSON, QuestionAbstract } from '../questions/QuestionAbstract';
-
-import { TransferClientInstance } from '../transfer/TransferClientInstance';
 
 import { RoomInfoJSON, RoomInfo } from './RoomInfo';
 import { RoomRebooter } from './RoomRebooter';
@@ -14,8 +12,10 @@ import { RoomRebooter } from './RoomRebooter';
 
 export type RoomJSON = QuestionJSON & RoomInfoJSON;
 
-export class Room extends RoomRebooter implements SerializerInterface
+export class Room extends RoomRebooter
 {
+	private readonly transfer = new Transfer(new WebSocketTasks('ws://127.0.0.1:8000/api/websocket'));
+
 	private question  ?: QuestionAbstract;
 	private room_info ?: RoomInfo;
 
@@ -25,9 +25,6 @@ export class Room extends RoomRebooter implements SerializerInterface
 
 		this.question?.destroy();
 		delete this.question;
-
-		TransferClientInstance.transfer?.close();
-		delete TransferClientInstance.transfer;
 	}
 
 	private open (tag_question_container: HTMLDivElement): void
@@ -38,14 +35,10 @@ export class Room extends RoomRebooter implements SerializerInterface
 
 		if (tag_slide instanceof HTMLDivElement)
 		{
-			this.room_info = new RoomInfo(this.tag_playing);
-
-			this.question = getQuestionHandler(tag_slide);
+			this.question = getQuestionHandler(this.transfer, tag_slide);
 			this.question.initialize();
 
-			TransferClientInstance.transfer = new TransferListener();
-			TransferClientInstance.transfer.send('check-update', '0.0');
-			TransferClientInstance.transfer.send('new-question', this.serializeToJSON());
+			this.transfer.send('new_question', this.question.serializeToJSON());
 		}
 	}
 
@@ -67,24 +60,18 @@ export class Room extends RoomRebooter implements SerializerInterface
 	public override initialize (): void
 	{
 		super.initialize();
+
+		this.room_info = new RoomInfo(this.tag_playing);
+		this.transfer.send('new_quiz', this.room_info.serializeToJSON());
+
 		this.open(this.tag_playing);
 	}
 
 	public override destroy (): void
 	{
 		super.destroy();
+
+		this.transfer.close();
 		this.close();
-	}
-
-	// ===== ===== ===== ===== =====
-
-	public serializeToJSON (): RoomJSON
-	{
-		return Object.assign(
-			{},
-
-			this.question?.serializeToJSON(),
-			this.room_info?.serializeToJSON()
-		);
 	}
 }

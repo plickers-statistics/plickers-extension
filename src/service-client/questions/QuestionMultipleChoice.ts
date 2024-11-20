@@ -19,7 +19,7 @@ export class QuestionMultipleChoice extends QuestionAbstract
 	private readonly identifier      = getIdentifier(this.formulationHTML);
 
 	private readonly tag_slide_choices = this.tag_slide.querySelectorWithCheck('div.slide-choices', HTMLDivElement);
-	private readonly choices           = new SelectionButtons(this.tag_slide_choices);
+	private readonly choices           = new SelectionButtons(this.transfer, this.tag_slide_choices);
 
 	public override serializeToJSON (): QuestionMultipleChoiceJSON
 	{

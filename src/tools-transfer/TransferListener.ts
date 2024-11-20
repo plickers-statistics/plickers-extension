@@ -1,39 +1,37 @@
 
 import { EventEmitter } from 'events';
-import { Runtime } from 'webextension-polyfill';
 
 import { isPackageDTO } from 'src/tools-DTOs/PackageDTO';
 
-import { Transfer } from './Transfer';
-import { TransferEvents } from './TransferEvents';
+import { TransferServerEvents } from './TransferEvents';
 import { TypedChecker, TypedCallback } from './Types';
 
 
-export class TransferListener
-<
-	TSenderEvents   extends TransferEvents,
-	TListenerEvents extends TransferEvents,
-> extends Transfer<TSenderEvents>
+export abstract class TransferListener
 {
 	private readonly events = new EventEmitter();
 
-	public constructor (connection ?: Runtime.Port)
+	public constructor
+	(
+		protected readonly connection: WebSocket
+	)
 	{
-		super(connection);
+		connection.addEventListener('message', event => {
+			const buffer = event.data;
+			const option = JSON.parse(buffer);
 
-		this.events.addListener('new-update', version => alert('Доступна новая версия: ' + version));
-		this.events.addListener('message',    message => isPackageDTO(message) && this.events.emit(message.type, message.data));
-
-		this.connection.onDisconnect.addListener(()      => console.debug('[PORT | Background => Client] disconnect'));
-		this.connection.onMessage   .addListener(message => console.debug('[PORT | Background => Client] message', message));
-
-		this.connection.onDisconnect.addListener(()      => this.events.emit('disconnect'));
-		this.connection.onMessage   .addListener(message => this.events.emit('message', message));
+			isPackageDTO(option) && this.events.emit(option.type, option.data);
+		});
 	}
 
 	// ===== ===== ===== ===== =====
 
-	public bind <THandler>(type: keyof TListenerEvents & string, checker: TypedChecker<THandler>, handler: TypedCallback<THandler>): void
+	public bind <TKey extends keyof TransferServerEvents>
+	(
+		type    : TKey,
+		checker : TypedChecker  <TransferServerEvents[TKey]>,
+		handler : TypedCallback <TransferServerEvents[TKey]>
+	): void
 	{
 		const safeCallback = function (message: unknown): void
 		{

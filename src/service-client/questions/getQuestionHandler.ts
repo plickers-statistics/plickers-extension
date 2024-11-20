@@ -1,9 +1,11 @@
 
+import { Transfer } from 'src/tools-transfer/Transfer';
+
 import { QuestionAbstract } from './QuestionAbstract';
 import { QuestionMultipleChoice } from './QuestionMultipleChoice';
 
 
-export function getQuestionHandler (tag_slide: HTMLDivElement): QuestionAbstract
+export function getQuestionHandler (transfer: Transfer, tag_slide: HTMLDivElement): QuestionAbstract
 {
 	/**
 	 * classes:
@@ -17,7 +19,7 @@ export function getQuestionHandler (tag_slide: HTMLDivElement): QuestionAbstract
 		case 'slide--template--bodyLeft':
 		case 'slide--template--bodyCenter':
 		case 'slide--template--bodyCenterChoicesMedia':
-			return new QuestionMultipleChoice(tag_slide);
+			return new QuestionMultipleChoice(transfer, tag_slide);
 	}
 
 	throw new TypeError();

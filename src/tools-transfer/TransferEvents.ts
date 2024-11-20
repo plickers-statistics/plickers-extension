@@ -3,21 +3,14 @@ import { AnswerDTO } from 'src/tools-DTOs/AnswerDTO';
 import { QuestionDTO } from 'src/tools-DTOs/QuestionDTO';
 
 
-export interface TransferEvents
-{
-	'disconnect' : undefined;
-	'message'    : any;
-}
-
-export interface TransferBackgroundEvents extends TransferEvents
+export interface TransferServerEvents
 {
 	'new-update' : string;
 }
 
-export interface TransferClientEvents extends TransferEvents
+export interface TransferClientEvents
 {
-	'check-update' : string;
-
-	'new-question'    : QuestionDTO;
-	'answer-selected' : AnswerDTO;
+	'new_quiz'     : any;
+	'new_question' : QuestionDTO;
+	'new_answer'   : number;
 }

@@ -1,6 +1,7 @@
 
 import { InitializerAbstract } from 'src/tools-initializer/InitializerAbstract';
 import { SerializerJSON, SerializerInterface } from 'src/tools-serializer/SerializerInterface';
+import { Transfer } from 'src/tools-transfer/Transfer';
 
 
 export interface QuestionJSON extends SerializerJSON
@@ -15,7 +16,8 @@ export abstract class QuestionAbstract extends InitializerAbstract implements Se
 
 	public constructor
 	(
-		protected readonly tag_slide: HTMLDivElement
+		protected readonly transfer  : Transfer,
+		protected readonly tag_slide : HTMLDivElement,
 	)
 	{
 		super();
