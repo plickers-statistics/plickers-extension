@@ -14,15 +14,13 @@ export type RoomJSON = QuestionJSON & RoomInfoJSON;
 
 export class Room extends RoomRebooter
 {
-	private readonly transfer = new Transfer(new WebSocketTasks('ws://127.0.0.1:8000/api/websocket'));
+	private readonly transfer  = new Transfer(new WebSocketTasks('ws://127.0.0.1:8000/api/websocket'));
+	private readonly room_info = new RoomInfo(this.tag_playing);
 
-	private question  ?: QuestionAbstract;
-	private room_info ?: RoomInfo;
+	private question ?: QuestionAbstract;
 
 	private close (): void
 	{
-		delete this.room_info;
-
 		this.question?.destroy();
 		delete this.question;
 	}
@@ -61,9 +59,7 @@ export class Room extends RoomRebooter
 	{
 		super.initialize();
 
-		this.room_info = new RoomInfo(this.tag_playing);
 		this.transfer.send('new_quiz', this.room_info.serializeToJSON());
-
 		this.open(this.tag_playing);
 	}
 
