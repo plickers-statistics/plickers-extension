@@ -21,7 +21,7 @@ export class Quiz extends QuizRebooter
 
 	private close (): void
 	{
-		this.question?.destroy();
+		this.question?.dispose();
 		delete this.question;
 	}
 
@@ -63,9 +63,9 @@ export class Quiz extends QuizRebooter
 		this.open(this.tag_playing);
 	}
 
-	public override destroy (): void
+	public override dispose (): void
 	{
-		super.destroy();
+		super.dispose();
 
 		this.transfer.close();
 		this.close();

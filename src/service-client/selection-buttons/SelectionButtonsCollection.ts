@@ -1,11 +1,11 @@
 
-import { InitializerAbstract } from 'src/tools-initializer/InitializerAbstract';
+import { Disposable } from 'src/tools-disposable/Disposable';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
 import { SelectionButton } from './SelectionButton';
 
 
-export abstract class SelectionButtonsCollection extends InitializerAbstract
+export abstract class SelectionButtonsCollection extends Disposable
 {
 	protected readonly collection: SelectionButton[] = [];
 
@@ -35,13 +35,13 @@ export abstract class SelectionButtonsCollection extends InitializerAbstract
 		}
 	}
 
-	public override destroy (): void
+	public override dispose (): void
 	{
-		super.destroy();
+		super.dispose();
 
 		for (const selection of this.collection)
 		{
-			selection.destroy();
+			selection.dispose();
 		}
 
 		this.collection.length = 0;

@@ -10,7 +10,7 @@ export class ClassRoom extends ClassRoomRebooter
 
 	private restart (): void
 	{
-		this.quiz?.destroy();
+		this.quiz?.dispose();
 		delete this.quiz;
 
 		const tag_playing = this.tag_playing_container.querySelector('div.nowPlaying--notScanning')
@@ -35,11 +35,11 @@ export class ClassRoom extends ClassRoomRebooter
 		this.restart();
 	}
 
-	public override destroy (): void
+	public override dispose (): void
 	{
-		super.destroy();
+		super.dispose();
 
-		this.quiz?.destroy();
+		this.quiz?.dispose();
 		delete this.quiz;
 	}
 }

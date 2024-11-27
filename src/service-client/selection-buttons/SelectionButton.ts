@@ -56,9 +56,9 @@ export class SelectionButton extends SelectionButtonListener implements Serializ
 		this.updateReview();
 	}
 
-	public override destroy (): void
+	public override dispose (): void
 	{
-		super.destroy();
+		super.dispose();
 
 		this.is_review.events.removeListener('refresh', this.updateClickListener);
 		this.tag_slide_choice.removeEventListener('click', this.clickHandler);

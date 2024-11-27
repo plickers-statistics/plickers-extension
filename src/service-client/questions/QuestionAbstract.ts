@@ -1,5 +1,5 @@
 
-import { InitializerAbstract } from 'src/tools-initializer/InitializerAbstract';
+import { Disposable } from 'src/tools-disposable/Disposable';
 import { SerializableJSON, Serializable } from 'src/tools-serializable/Serializable';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
@@ -10,7 +10,7 @@ export interface QuestionJSON extends SerializableJSON
 	identifier      : number;
 }
 
-export abstract class QuestionAbstract extends InitializerAbstract implements Serializable
+export abstract class QuestionAbstract extends Disposable implements Serializable
 {
 	public abstract serializeToJSON (): QuestionJSON;
 

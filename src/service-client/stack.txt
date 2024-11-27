@@ -1,9 +1,9 @@
 
 main
--> Initializer                        <- InitializerRebooter        <- MutationListener <- InitializerAbstract
-   -> ClassRoom                       <- ClassRoomRebooter          <- MutationListener <- InitializerAbstract
-      -> Quiz                         <- QuizRebooter               <- MutationListener <- InitializerAbstract
+-> Initializer                        <- InitializerRebooter        <- MutationListener <- Disposable
+   -> ClassRoom                       <- ClassRoomRebooter          <- MutationListener <- Disposable
+      -> Quiz                         <- QuizRebooter               <- MutationListener <- Disposable
          -> getQuestionHandler
-            -> QuestionMultipleChoice <- QuestionAbstract                             <- InitializerAbstract
-               -> SelectionButtons    <- SelectionButtonsCollection                   <- InitializerAbstract
-                  -> SelectionButton  <- SelectionButtonListener    <- MutationListener <- InitializerAbstract
+            -> QuestionMultipleChoice <- QuestionAbstract                               <- Disposable
+               -> SelectionButtons    <- SelectionButtonsCollection                     <- Disposable
+                  -> SelectionButton  <- SelectionButtonListener    <- MutationListener <- Disposable

@@ -23,12 +23,12 @@ export class Initializer extends InitializerRebooter
 			}
 		}
 
-		// destroy
+		// dispose
 		for (const removedNode of mutation.removedNodes)
 		{
 			if (isTagClassRoom(removedNode))
 			{
-				this.class_room?.destroy();
+				this.class_room?.dispose();
 				delete this.class_room;
 
 				break;
@@ -36,11 +36,11 @@ export class Initializer extends InitializerRebooter
 		}
 	}
 
-	public override destroy (): void
+	public override dispose (): void
 	{
-		super.destroy();
+		super.dispose();
 
-		this.class_room?.destroy();
+		this.class_room?.dispose();
 		delete this.class_room;
 	}
 }

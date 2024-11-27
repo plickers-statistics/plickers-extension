@@ -1,8 +1,8 @@
 
-import { InitializerAbstract } from 'src/tools-initializer/InitializerAbstract';
+import { Disposable } from 'src/tools-disposable/Disposable';
 
 
-export abstract class MutationListener extends InitializerAbstract
+export abstract class MutationListener extends Disposable
 {
 	protected filterMutation (mutation: MutationRecord): void
 	{
@@ -18,9 +18,9 @@ export abstract class MutationListener extends InitializerAbstract
 
 	protected readonly listener = new MutationObserver(mutations => this.filterMutations(mutations));
 
-	public override destroy (): void
+	public override dispose (): void
 	{
-		super.destroy();
+		super.dispose();
 
 		this.listener.disconnect();
 	}

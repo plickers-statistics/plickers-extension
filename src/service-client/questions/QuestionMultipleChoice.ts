@@ -37,9 +37,9 @@ export class QuestionMultipleChoice extends QuestionAbstract
 		this.choices.initialize();
 	}
 
-	public override destroy (): void
+	public override dispose (): void
 	{
-		super.destroy();
-		this.choices.destroy();
+		super.dispose();
+		this.choices.dispose();
 	}
 }
