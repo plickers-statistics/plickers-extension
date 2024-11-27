@@ -1,10 +1,10 @@
 
-import { Initializer } from './initializer/Initializer';
+import { Lobby } from './lobby/Lobby';
 
 
 const tag_root    = document.querySelectorWithCheck('div#root', HTMLDivElement);
-const initializer = new Initializer(tag_root);
+const lobby = new Lobby(tag_root);
 
-initializer.initialize();
+lobby.initialize();
 
-(window as any).kotonai_initializer = initializer;
+(window as any).kotonai_lobby = lobby;

@@ -1,6 +1,6 @@
 
 main
--> Initializer                        <- InitializerRebooter        <- MutationListener <- Disposable
+-> Lobby                              <- LobbyRebooter              <- MutationListener <- Disposable
    -> ClassRoom                       <- ClassRoomRebooter          <- MutationListener <- Disposable
       -> Quiz                         <- QuizRebooter               <- MutationListener <- Disposable
          -> getQuestionHandler

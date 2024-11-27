@@ -2,10 +2,10 @@
 import { isTagClassRoom } from '../class-room/isTagClassRoom';
 import { ClassRoom } from '../class-room/ClassRoom';
 
-import { InitializerRebooter } from './InitializerRebooter';
+import { LobbyRebooter } from './LobbyRebooter';
 
 
-export class Initializer extends InitializerRebooter
+export class Lobby extends LobbyRebooter
 {
 	private class_room ?: ClassRoom;
 
