@@ -5,6 +5,7 @@ import { SelectionButtonJSON } from '../selection-buttons/button/ButtonPressList
 import { SelectionButtons } from '../selection-buttons/SelectionButtons';
 
 import { QuestionJSON, QuestionAbstract } from './QuestionAbstract';
+import { QuestionSupportCopying } from './QuestionSupportCopying';
 
 
 interface QuestionMultipleChoiceJSON extends QuestionJSON
@@ -20,6 +21,8 @@ export class QuestionMultipleChoice extends QuestionAbstract
 
 	private readonly tag_slide_choices = this.tag_slide.querySelectorWithCheck('div.slide-choices', HTMLDivElement);
 	private readonly choices           = new SelectionButtons(this.transfer, this.tag_slide_choices);
+
+	private readonly support_copying = new QuestionSupportCopying(this.tag_slide_body, this.tag_slide);
 
 	public override serializeToJSON (): QuestionMultipleChoiceJSON
 	{
@@ -40,6 +43,8 @@ export class QuestionMultipleChoice extends QuestionAbstract
 	public override dispose (): void
 	{
 		super.dispose();
+
+		this.support_copying.dispose();
 		this.choices.dispose();
 	}
 }
