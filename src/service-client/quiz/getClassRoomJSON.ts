@@ -50,7 +50,9 @@ export function getClassRoomJSON (tag_playing: HTMLDivElement): ClassRoomDTO
 				student: {
 					id         : student_id,
 					first_name : student_first_name,
-				}
+				},
+
+				version: '1.0',
 			};
 		}
 	}
