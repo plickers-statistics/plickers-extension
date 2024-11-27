@@ -6,6 +6,7 @@ import { QuestionDTO } from 'src/tools-DTOs/QuestionDTO';
 export interface TransferServerEvents
 {
 	'new-update' : string;
+	'answers_recalculated' : any;
 }
 
 export interface TransferClientEvents

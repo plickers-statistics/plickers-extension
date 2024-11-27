@@ -31,7 +31,7 @@ export abstract class TransferListener
 		type    : TKey,
 		checker : TypedChecker  <TransferServerEvents[TKey]>,
 		handler : TypedCallback <TransferServerEvents[TKey]>
-	): void
+	): (...args: any[]) => void
 	{
 		const safeCallback = function (message: unknown): void
 		{
@@ -41,5 +41,8 @@ export abstract class TransferListener
 		};
 
 		this.events.addListener(type, safeCallback);
+		return safeCallback;
 	}
+
+	public readonly unbind = this.events.removeListener;
 }
