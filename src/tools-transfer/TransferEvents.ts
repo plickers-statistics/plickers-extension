@@ -5,7 +5,7 @@ import { QuestionDTO } from 'src/tools-DTOs/QuestionDTO';
 
 export interface TransferServerEvents
 {
-	'new-update' : string;
+	'notification'         : string;
 	'answers_recalculated' : any;
 }
 
