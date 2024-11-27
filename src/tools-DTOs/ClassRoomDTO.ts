@@ -14,6 +14,8 @@ export interface ClassRoomDTO
 		id         : string;
 		first_name : string;
 	};
+
+	version: string;
 }
 
 export function isClassRoomDTO (obj: unknown): obj is ClassRoomDTO
@@ -42,5 +44,7 @@ export function isClassRoomDTO (obj: unknown): obj is ClassRoomDTO
 		&& typeof class_room.teacher_name === 'string'
 
 		&& typeof student.id         === 'string'
-		&& typeof student.first_name === 'string';
+		&& typeof student.first_name === 'string'
+
+		&& typeof obj.version === 'string';
 }
