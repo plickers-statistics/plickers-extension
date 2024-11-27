@@ -13,6 +13,8 @@ export class QuestionSupportCopying
 
 		document.execCommand('copy');
 		tag_textarea.remove();
+
+		alert('Скопировано в буфер обмена');
 	};
 
 	public constructor
@@ -23,7 +25,7 @@ export class QuestionSupportCopying
 	{
 		const parser = new DOMParser();
 
-		this.tag_copy = parser.parseFromString('<button>copy</button>', 'text/html').body.firstElementChild as HTMLButtonElement;
+		this.tag_copy = parser.parseFromString('<button style="border: none; border-radius: 10px; background: #57c5f7; color: white; padding: 2px 7px">copy</button>', 'text/html').body.firstElementChild as HTMLButtonElement;
 		this.tag_copy.addEventListener('click', this.pressed);
 
 		this.tag_container.appendChild(this.tag_copy);
