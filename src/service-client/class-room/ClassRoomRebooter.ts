@@ -2,7 +2,7 @@
 import { MutationListener } from 'src/tools-mutation/MutationListener';
 
 
-export abstract class LobbyRebooter extends MutationListener
+export abstract class ClassRoomRebooter extends MutationListener
 {
 	public constructor
 	(

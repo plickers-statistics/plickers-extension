@@ -1,7 +1,7 @@
 
 main
 -> Initializer                        <- InitializerRebooter        <- MutationListener <- InitializerAbstract
-   -> Lobby                           <- LobbyRebooter              <- MutationListener <- InitializerAbstract
+   -> ClassRoom                       <- ClassRoomRebooter          <- MutationListener <- InitializerAbstract
       -> Quiz                         <- QuizRebooter               <- MutationListener <- InitializerAbstract
          -> getQuestionHandler
             -> QuestionMultipleChoice <- QuestionAbstract                             <- InitializerAbstract

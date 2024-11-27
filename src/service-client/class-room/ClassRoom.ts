@@ -1,10 +1,10 @@
 
 import { Quiz } from '../quiz/Quiz';
 
-import { LobbyRebooter } from './LobbyRebooter';
+import { ClassRoomRebooter } from './ClassRoomRebooter';
 
 
-export class Lobby extends LobbyRebooter
+export class ClassRoom extends ClassRoomRebooter
 {
 	private quiz ?: Quiz;
 

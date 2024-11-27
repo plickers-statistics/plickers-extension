@@ -1,5 +1,5 @@
 
-export function isTagLobby (node: Node): node is HTMLDivElement
+export function isTagClassRoom (node: Node): node is HTMLDivElement
 {
 	return node instanceof HTMLDivElement
 		&& node.classList.contains('nowPlayingContainer');
