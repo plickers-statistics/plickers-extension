@@ -1,25 +1,25 @@
 
-import { Room } from '../rooms/Room';
+import { Quiz } from '../quiz/Quiz';
 
 import { LobbyRebooter } from './LobbyRebooter';
 
 
 export class Lobby extends LobbyRebooter
 {
-	private room ?: Room;
+	private quiz ?: Quiz;
 
 	private restart (): void
 	{
-		this.room?.destroy();
-		delete this.room;
+		this.quiz?.destroy();
+		delete this.quiz;
 
 		const tag_playing = this.tag_playing_container.querySelector('div.nowPlaying--notScanning')
 			|| this.tag_playing_container.querySelector('div.nowPlaying--isScanning');
 
 		if (tag_playing instanceof HTMLDivElement)
 		{
-			this.room = new Room(tag_playing);
-			this.room.initialize();
+			this.quiz = new Quiz(tag_playing);
+			this.quiz.initialize();
 		}
 	}
 
@@ -39,7 +39,7 @@ export class Lobby extends LobbyRebooter
 	{
 		super.destroy();
 
-		this.room?.destroy();
-		delete this.room;
+		this.quiz?.destroy();
+		delete this.quiz;
 	}
 }

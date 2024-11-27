@@ -6,16 +6,16 @@ import { getQuestionHandler } from '../questions/getQuestionHandler';
 import { isTagQuestion } from '../questions/isTagQuestion';
 import { QuestionJSON, QuestionAbstract } from '../questions/QuestionAbstract';
 
-import { RoomInfoJSON, RoomInfo } from './RoomInfo';
-import { RoomRebooter } from './RoomRebooter';
+import { QuizInfoJSON, QuizInfo } from './QuizInfo';
+import { QuizRebooter } from './QuizRebooter';
 
 
-export type RoomJSON = QuestionJSON & RoomInfoJSON;
+export type QuizJSON = QuestionJSON & QuizInfoJSON;
 
-export class Room extends RoomRebooter
+export class Quiz extends QuizRebooter
 {
 	private readonly transfer  = new Transfer(new WebSocketTasks('ws://127.0.0.1:8000/api/websocket'));
-	private readonly room_info = new RoomInfo(this.tag_playing);
+	private readonly quiz_info = new QuizInfo(this.tag_playing);
 
 	private question ?: QuestionAbstract;
 
@@ -59,7 +59,7 @@ export class Room extends RoomRebooter
 	{
 		super.initialize();
 
-		this.transfer.send('new_quiz', this.room_info.serializeToJSON());
+		this.transfer.send('new_quiz', this.quiz_info.serializeToJSON());
 		this.open(this.tag_playing);
 	}
 

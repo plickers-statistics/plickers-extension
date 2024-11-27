@@ -2,7 +2,7 @@
 import { MutationListener } from 'src/tools-mutation/MutationListener';
 
 
-export abstract class RoomRebooter extends MutationListener
+export abstract class QuizRebooter extends MutationListener
 {
 	public constructor
 	(

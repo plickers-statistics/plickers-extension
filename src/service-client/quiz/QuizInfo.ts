@@ -2,13 +2,13 @@
 import { SerializableJSON, Serializable } from 'src/tools-serializable/Serializable';
 
 
-export interface RoomInfoJSON extends SerializableJSON
+export interface QuizInfoJSON extends SerializableJSON
 {
 	section_name : string;
 	student_name : string;
 }
 
-export class RoomInfo implements Serializable
+export class QuizInfo implements Serializable
 {
 	private readonly tag_section_name = this.tag_playing.querySelectorWithCheck('div.nowPlaying-topPanel-sectionBlob-label', HTMLDivElement);
 	private readonly section_name     = this.tag_section_name.innerHTML;
@@ -23,7 +23,7 @@ export class RoomInfo implements Serializable
 	{
 	}
 
-	public serializeToJSON (): RoomInfoJSON
+	public serializeToJSON (): QuizInfoJSON
 	{
 		return {
 			section_name: this.section_name,
