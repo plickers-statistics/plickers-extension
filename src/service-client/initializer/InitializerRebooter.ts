@@ -1,8 +1,8 @@
 
-import { MutationFilter } from 'src/tools-mutation/MutationFilter';
+import { MutationListener } from 'src/tools-mutation/MutationListener';
 
 
-export abstract class InitializerRebooter extends MutationFilter
+export abstract class InitializerRebooter extends MutationListener
 {
 	public constructor
 	(

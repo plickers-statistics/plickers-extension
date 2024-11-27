@@ -1,8 +1,8 @@
 
-import { MutationFilter } from 'src/tools-mutation/MutationFilter';
+import { MutationListener } from 'src/tools-mutation/MutationListener';
 
 
-export abstract class RoomRebooter extends MutationFilter
+export abstract class RoomRebooter extends MutationListener
 {
 	public constructor
 	(

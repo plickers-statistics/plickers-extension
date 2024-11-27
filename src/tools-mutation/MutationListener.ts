@@ -2,7 +2,7 @@
 import { InitializerAbstract } from 'src/tools-initializer/InitializerAbstract';
 
 
-export abstract class MutationFilter extends InitializerAbstract
+export abstract class MutationListener extends InitializerAbstract
 {
 	protected filterMutation (mutation: MutationRecord): void
 	{

@@ -1,9 +1,9 @@
 
-import { MutationFilter } from 'src/tools-mutation/MutationFilter';
+import { MutationListener } from 'src/tools-mutation/MutationListener';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
 
-export abstract class SelectionButtonListener extends MutationFilter
+export abstract class SelectionButtonListener extends MutationListener
 {
 	public constructor
 	(
