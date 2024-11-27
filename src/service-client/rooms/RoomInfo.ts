@@ -1,14 +1,14 @@
 
-import { SerializerJSON, SerializerInterface } from 'src/tools-serializer/SerializerInterface';
+import { SerializableJSON, Serializable } from 'src/tools-serializable/Serializable';
 
 
-export interface RoomInfoJSON extends SerializerJSON
+export interface RoomInfoJSON extends SerializableJSON
 {
 	section_name : string;
 	student_name : string;
 }
 
-export class RoomInfo implements SerializerInterface
+export class RoomInfo implements Serializable
 {
 	private readonly tag_section_name = this.tag_playing.querySelectorWithCheck('div.nowPlaying-topPanel-sectionBlob-label', HTMLDivElement);
 	private readonly section_name     = this.tag_section_name.innerHTML;

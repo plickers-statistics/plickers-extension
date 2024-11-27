@@ -1,16 +1,16 @@
 
 import { InitializerAbstract } from 'src/tools-initializer/InitializerAbstract';
-import { SerializerJSON, SerializerInterface } from 'src/tools-serializer/SerializerInterface';
+import { SerializableJSON, Serializable } from 'src/tools-serializable/Serializable';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
 
-export interface QuestionJSON extends SerializerJSON
+export interface QuestionJSON extends SerializableJSON
 {
 	formulationHTML : string;
 	identifier      : number;
 }
 
-export abstract class QuestionAbstract extends InitializerAbstract implements SerializerInterface
+export abstract class QuestionAbstract extends InitializerAbstract implements Serializable
 {
 	public abstract serializeToJSON (): QuestionJSON;
 

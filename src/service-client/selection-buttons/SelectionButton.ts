@@ -1,5 +1,5 @@
 
-import { SerializerJSON, SerializerInterface } from 'src/tools-serializer/SerializerInterface';
+import { SerializableJSON, Serializable } from 'src/tools-serializable/Serializable';
 
 import { State } from 'src/tools-types/State';
 import { getIdentifier } from 'src/tools-types/String';
@@ -9,13 +9,13 @@ import { TransferClientInstance } from '../transfer/TransferClientInstance';
 import { SelectionButtonListener } from './SelectionButtonListener';
 
 
-export interface SelectionButtonJSON extends SerializerJSON
+export interface SelectionButtonJSON extends SerializableJSON
 {
 	formulationHTML : string;
 	identifier      : number;
 }
 
-export class SelectionButton extends SelectionButtonListener implements SerializerInterface
+export class SelectionButton extends SelectionButtonListener implements Serializable
 {
 	private readonly tag_slide_choice_text = this.tag_slide_choice.querySelectorWithCheck('div.slide-choice-content', HTMLDivElement);
 
