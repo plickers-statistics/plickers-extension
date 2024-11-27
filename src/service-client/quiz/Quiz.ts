@@ -65,7 +65,7 @@ export class Quiz extends QuizRebooter
 	{
 		super.dispose();
 
-		this.transfer.close();
+		this.transfer.dispose();
 		this.close();
 	}
 }

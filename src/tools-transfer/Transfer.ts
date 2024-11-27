@@ -5,7 +5,10 @@ import { TransferListener } from './TransferListener';
 
 export class Transfer extends TransferListener
 {
-	public readonly close = this.connection.close;
+	public dispose (): void
+	{
+		this.connection.close();
+	}
 
 	public send <TKey extends keyof TransferClientEvents>(type: TKey, data: TransferClientEvents[TKey]): void
 	{
