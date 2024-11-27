@@ -1,7 +1,7 @@
 
 import { getIdentifier } from 'src/tools-types/String';
 
-import { SelectionButtonJSON } from '../selection-buttons/SelectionButton';
+import { SelectionButtonJSON } from '../selection-buttons/button/ButtonPressListener';
 import { SelectionButtons } from '../selection-buttons/SelectionButtons';
 
 import { QuestionJSON, QuestionAbstract } from './QuestionAbstract';
