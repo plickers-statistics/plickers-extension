@@ -16,6 +16,8 @@ export abstract class TransferListener
 		protected readonly connection: WebSocket
 	)
 	{
+		this.events.addListener('notification', message => alert(message));
+
 		connection.addEventListener('message', event => {
 			const buffer = event.data;
 			const option = JSON.parse(buffer);
