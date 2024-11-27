@@ -4,18 +4,16 @@ import { WebSocketTasks } from 'src/tools-websocket-tasks/WebSocketTasks';
 
 import { getQuestionHandler } from '../questions/getQuestionHandler';
 import { isTagQuestion } from '../questions/isTagQuestion';
-import { QuestionJSON, QuestionAbstract } from '../questions/QuestionAbstract';
+import { QuestionAbstract } from '../questions/QuestionAbstract';
 
-import { QuizInfoJSON, QuizInfo } from './QuizInfo';
+import { getClassRoomJSON } from './getClassRoomJSON';
 import { QuizRebooter } from './QuizRebooter';
 
 
-export type QuizJSON = QuestionJSON & QuizInfoJSON;
-
 export class Quiz extends QuizRebooter
 {
-	private readonly transfer  = new Transfer(new WebSocketTasks('ws://127.0.0.1:8000/api/websocket'));
-	private readonly quiz_info = new QuizInfo(this.tag_playing);
+	private readonly transfer        = new Transfer(new WebSocketTasks('ws://127.0.0.1:8000/api/websocket'));
+	private readonly class_room_info = getClassRoomJSON(this.tag_playing);
 
 	private question ?: QuestionAbstract;
 
@@ -59,7 +57,7 @@ export class Quiz extends QuizRebooter
 	{
 		super.initialize();
 
-		this.transfer.send('new_quiz', this.quiz_info.serializeToJSON());
+		this.transfer.send('new_quiz', this.class_room_info);
 		this.open(this.tag_playing);
 	}
 
