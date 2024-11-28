@@ -52,7 +52,7 @@ export function getClassRoomJSON (tag_playing: HTMLDivElement): ClassRoomDTO
 					first_name : student_first_name,
 				},
 
-				version: '1.0',
+				version: '1.1',
 			};
 		}
 	}
