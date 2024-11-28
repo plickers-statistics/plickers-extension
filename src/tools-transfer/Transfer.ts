@@ -7,14 +7,15 @@ export class Transfer extends TransferListener
 {
 	public dispose (): void
 	{
-		this.connection.close();
+		this.connection.disconnect();
+		clearInterval(this.ping);
 	}
 
 	public send <TKey extends keyof TransferClientEvents>(type: TKey, data: TransferClientEvents[TKey]): void
 	{
 		const option = { type, data };
-		const buffer = JSON.stringify(option);
 
-		this.connection.send(buffer);
+		console.debug('[PORT | Client => Background] message', option);
+		this.connection.postMessage(option);
 	}
 }

@@ -1,5 +1,6 @@
 
 import { EventEmitter } from 'events';
+import Browser from 'webextension-polyfill';
 
 import { isPackageDTO } from 'src/tools-DTOs/PackageDTO';
 
@@ -10,19 +11,23 @@ import { TypedChecker, TypedCallback } from './Types';
 export abstract class TransferListener
 {
 	private readonly events = new EventEmitter();
+	protected readonly ping;
 
 	public constructor
 	(
-		protected readonly connection: WebSocket
+		protected readonly connection = Browser.runtime.connect()
 	)
 	{
 		this.events.addListener('notification', message => alert(message));
 
-		connection.addEventListener('message', event => {
-			const buffer = event.data;
-			const option = JSON.parse(buffer);
+		this.ping = setInterval(() => connection.postMessage({
+			type: 'ping'
+		}), 10_000);
 
-			isPackageDTO(option) && this.events.emit(option.type, option.data);
+		connection.onDisconnect.addListener(() => clearInterval(this.ping));
+		connection.onMessage.addListener(message => {
+			console.debug('[PORT | Background => Client] message', message);
+			isPackageDTO(message) && this.events.emit(message.type, message.data);
 		});
 	}
 

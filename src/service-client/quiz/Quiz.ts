@@ -12,7 +12,7 @@ import { QuizRebooter } from './QuizRebooter';
 
 export class Quiz extends QuizRebooter
 {
-	private readonly transfer        = new Transfer(new WebSocketTasks('ws://127.0.0.1:8000/api/websocket'));
+	private readonly transfer        = new Transfer();
 	private readonly class_room_info = getClassRoomJSON(this.tag_playing);
 
 	private question ?: QuestionAbstract;

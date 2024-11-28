@@ -6,7 +6,7 @@ import { Runtime } from 'webextension-polyfill';
 
 export class Listener
 {
-	private readonly websocket = new WebSocketTasks('ws://78.29.34.5:3002/api/ws');
+	private readonly websocket = new WebSocketTasks('ws://78.29.34.5:3002/api/websocket');
 
 	public constructor
 	(
@@ -20,6 +20,11 @@ export class Listener
 
 		// port => websocket
 		this.connection.onMessage.addListener(message => {
+			if ((message as any).type === 'ping')
+			{
+				return;
+			}
+
 			this.websocket.send(JSON.stringify(message));
 		});
 
