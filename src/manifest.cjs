@@ -16,6 +16,10 @@ module.exports = {
 		'https://my.plickers.com/*'
 	],
 
+	background: {
+		service_worker: 'background.js'
+	},
+
 	content_scripts: [
 		{
 			matches: [

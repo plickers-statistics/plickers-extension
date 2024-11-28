@@ -13,11 +13,12 @@ const folders = {
 };
 
 const files = {
-	manifest: path.resolve(folders.source, 'manifest.cjs'),
+	manifest : path.resolve(folders.source, 'manifest.cjs'),
 
-	additions: path.resolve(folders.additions, 'includes.ts'),
+	additions : path.resolve(folders.additions, 'includes.ts'),
 
-	client: path.resolve(folders.source, 'service-client', 'main.ts'),
+	background : path.resolve(folders.source, 'service-background', 'main.ts'),
+	client     : path.resolve(folders.source, 'service-client',     'main.ts'),
 };
 
 /** @type { webpack.Configuration } */
@@ -58,7 +59,9 @@ module.exports = {
 
 	entry: {
 		additions : files.additions,
-		client    : files.client,
+
+		background : files.background,
+		client     : files.client,
 	},
 
 	devtool : 'inline-source-map',
