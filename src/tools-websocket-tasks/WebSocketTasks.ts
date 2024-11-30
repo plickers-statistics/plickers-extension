@@ -1,5 +1,5 @@
 
-type TypeSendOptions = string | ArrayBufferLike | Blob | ArrayBufferView;
+type TypeSendOptions = Parameters< WebSocket['send'] >;
 
 export class WebSocketTasks extends WebSocket
 {
@@ -7,9 +7,9 @@ export class WebSocketTasks extends WebSocket
 
 	private sendQueue (): void
 	{
-		for (const data of this.queue)
+		for (const options of this.queue)
 		{
-			this.send(data);
+			this.send(...options);
 		}
 
 		this.queue.length = 0;
@@ -27,10 +27,10 @@ export class WebSocketTasks extends WebSocket
 		this.addEventListener('open', on_opened);
 	}
 
-	public override send (data: TypeSendOptions): void
+	public override send (...options: TypeSendOptions): void
 	{
 		this.readyState === this.OPEN
-			? super.send(data)
-			: this.queue.push(data);
+			? super.send(...options)
+			: this.queue.push(options);
 	}
 }
