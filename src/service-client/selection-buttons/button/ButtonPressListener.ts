@@ -13,7 +13,7 @@ export interface SelectionButtonJSON extends SerializableJSON
 	identifier      : number;
 }
 
-export class ButtonPressListener extends Disposable implements Serializable
+export class ButtonPressListener implements Serializable, Disposable
 {
 	private readonly tag_slide_choice_text = this.tag_slide_choice.querySelectorWithCheck('div.slide-choice-content', HTMLDivElement);
 
@@ -46,8 +46,6 @@ export class ButtonPressListener extends Disposable implements Serializable
 		protected readonly tag_slide_choice : HTMLButtonElement,
 	)
 	{
-		super();
-
 		this.is_listen.events.addListener('refresh', this.updateClickListener);
 		this.mutationsListener();
 	}
@@ -60,10 +58,8 @@ export class ButtonPressListener extends Disposable implements Serializable
 		};
 	}
 
-	public override dispose (): void
+	public dispose (): void
 	{
-		super.dispose();
-
 		this.is_listen.events.removeListener('refresh', this.updateClickListener);
 		this.tag_slide_choice.removeEventListener('click', this.clickHandler);
 	}

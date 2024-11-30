@@ -7,7 +7,7 @@ import { ButtonPressListener } from './ButtonPressListener';
 import { ShowStatisticsButton } from './ShowStatisticsButton';
 
 
-export class SelectionButton extends MutationListener
+export class SelectionButton extends MutationListener implements Serializable
 {
 	private readonly show_statistics = new ShowStatisticsButton(this.transfer, this.tag_slide_choice);
 	private readonly press_listener  = new ButtonPressListener(this.transfer, this.tag_slide_choice);

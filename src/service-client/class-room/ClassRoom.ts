@@ -1,17 +1,16 @@
 
+import { MutationListener } from 'src/tools-mutation/MutationListener';
+
 import { Quiz } from '../quiz/Quiz';
 
-import { ClassRoomRebooter } from './ClassRoomRebooter';
 
-
-export class ClassRoom extends ClassRoomRebooter
+export class ClassRoom extends MutationListener
 {
 	private quiz ?: Quiz;
 
 	private restart (): void
 	{
 		this.quiz?.dispose();
-		delete this.quiz;
 
 		const tag_playing = this.tag_playing_container.querySelector('div.nowPlaying--notScanning')
 			|| this.tag_playing_container.querySelector('div.nowPlaying--isScanning');
@@ -19,19 +18,11 @@ export class ClassRoom extends ClassRoomRebooter
 		if (tag_playing instanceof HTMLDivElement)
 		{
 			this.quiz = new Quiz(tag_playing);
-			this.quiz.initialize();
 		}
 	}
 
 	protected override filterMutations (): void
 	{
-		this.restart();
-	}
-
-	public override initialize (): void
-	{
-		super.initialize();
-
 		this.restart();
 	}
 
@@ -41,5 +32,19 @@ export class ClassRoom extends ClassRoomRebooter
 
 		this.quiz?.dispose();
 		delete this.quiz;
+	}
+
+	public constructor
+	(
+		private readonly tag_playing_container: HTMLDivElement
+	)
+	{
+		super();
+
+		this.restart();
+
+		this.listener.observe(tag_playing_container, {
+			childList: true
+		});
 	}
 }

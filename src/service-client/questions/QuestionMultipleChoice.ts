@@ -34,16 +34,8 @@ export class QuestionMultipleChoice extends QuestionAbstract
 		};
 	}
 
-	public override initialize (): void
-	{
-		super.initialize();
-		this.choices.initialize();
-	}
-
 	public override dispose (): void
 	{
-		super.dispose();
-
 		this.support_copying.dispose();
 		this.choices.dispose();
 	}

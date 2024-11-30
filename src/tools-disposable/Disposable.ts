@@ -1,13 +1,5 @@
 
-export abstract class Disposable
+export interface Disposable
 {
-	public initialize (): void
-	{
-		console.debug('initialize', this);
-	}
-
-	public dispose (): void
-	{
-		console.debug('dispose', this);
-	}
+	dispose (): void;
 }

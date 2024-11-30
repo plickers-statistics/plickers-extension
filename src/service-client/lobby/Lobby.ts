@@ -1,11 +1,11 @@
 
-import { isTagClassRoom } from '../class-room/isTagClassRoom';
+import { MutationListener } from 'src/tools-mutation/MutationListener';
+
 import { ClassRoom } from '../class-room/ClassRoom';
+import { isTagClassRoom } from '../class-room/isTagClassRoom';
 
-import { LobbyRebooter } from './LobbyRebooter';
 
-
-export class Lobby extends LobbyRebooter
+export class Lobby extends MutationListener
 {
 	private class_room ?: ClassRoom;
 
@@ -17,8 +17,6 @@ export class Lobby extends LobbyRebooter
 			if (isTagClassRoom(addedNode))
 			{
 				this.class_room = new ClassRoom(addedNode);
-				this.class_room.initialize();
-
 				break;
 			}
 		}
@@ -42,5 +40,17 @@ export class Lobby extends LobbyRebooter
 
 		this.class_room?.dispose();
 		delete this.class_room;
+	}
+
+	public constructor
+	(
+		private readonly tag_root: HTMLDivElement
+	)
+	{
+		super();
+
+		this.listener.observe(tag_root, {
+			childList: true
+		});
 	}
 }

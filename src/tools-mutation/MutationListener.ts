@@ -2,7 +2,7 @@
 import { Disposable } from 'src/tools-disposable/Disposable';
 
 
-export abstract class MutationListener extends Disposable
+export abstract class MutationListener implements Disposable
 {
 	protected filterMutation (mutation: MutationRecord): void
 	{
@@ -18,10 +18,8 @@ export abstract class MutationListener extends Disposable
 
 	protected readonly listener = new MutationObserver(mutations => this.filterMutations(mutations));
 
-	public override dispose (): void
+	public dispose (): void
 	{
-		super.dispose();
-
 		this.listener.disconnect();
 	}
 }

@@ -1,4 +1,5 @@
 
+import { MutationListener } from 'src/tools-mutation/MutationListener';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
 import { getQuestionHandler } from '../questions/getQuestionHandler';
@@ -6,10 +7,9 @@ import { isTagQuestion } from '../questions/isTagQuestion';
 import { QuestionAbstract } from '../questions/QuestionAbstract';
 
 import { getClassRoomJSON } from './getClassRoomJSON';
-import { QuizRebooter } from './QuizRebooter';
 
 
-export class Quiz extends QuizRebooter
+export class Quiz extends MutationListener
 {
 	private readonly transfer        = new Transfer();
 	private readonly class_room_info = getClassRoomJSON(this.tag_playing);
@@ -31,7 +31,6 @@ export class Quiz extends QuizRebooter
 		if (tag_slide instanceof HTMLDivElement)
 		{
 			this.question = getQuestionHandler(this.transfer, tag_slide);
-			this.question.initialize();
 
 			this.transfer.send('new_question', this.question.serializeToJSON());
 		}
@@ -52,19 +51,26 @@ export class Quiz extends QuizRebooter
 		}
 	}
 
-	public override initialize (): void
-	{
-		super.initialize();
-
-		this.transfer.send('new_quiz', this.class_room_info);
-		this.open(this.tag_playing);
-	}
-
 	public override dispose (): void
 	{
 		super.dispose();
 
 		this.transfer.dispose();
 		this.close();
+	}
+
+	public constructor
+	(
+		protected readonly tag_playing: HTMLDivElement
+	)
+	{
+		super();
+
+		this.transfer.send('new_quiz', this.class_room_info);
+		this.open(tag_playing);
+
+		this.listener.observe(tag_playing, {
+			childList: true
+		});
 	}
 }

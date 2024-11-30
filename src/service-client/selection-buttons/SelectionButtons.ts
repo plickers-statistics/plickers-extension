@@ -7,7 +7,7 @@ import { SelectionButtonJSON } from './button/ButtonPressListener';
 import { SelectionButton } from './button/SelectionButton';
 
 
-export class SelectionButtons extends Disposable implements Serializable
+export class SelectionButtons implements Serializable, Disposable
 {
 	protected readonly collection = [...this.tag_slide_choices.querySelectorAll<HTMLButtonElement>('button.slide-choice')]
 		.map(tag_slide_choice => new SelectionButton(this.transfer, tag_slide_choice));
@@ -36,15 +36,11 @@ export class SelectionButtons extends Disposable implements Serializable
 		private readonly tag_slide_choices : HTMLDivElement,
 	)
 	{
-		super();
-
 		this.AnswersCallback = transfer.bind('answers_recalculated', (obj: unknown): obj is any => true, this.AnswersRecalculated);
 	}
 
-	public override dispose (): void
+	public dispose (): void
 	{
-		super.dispose();
-
 		this.transfer.unbind('answers_recalculated', this.AnswersCallback);
 
 		for (const selection of this.collection)

@@ -10,9 +10,10 @@ export interface QuestionJSON extends SerializableJSON
 	identifier      : number;
 }
 
-export abstract class QuestionAbstract extends Disposable implements Serializable
+export abstract class QuestionAbstract implements Serializable, Disposable
 {
 	public abstract serializeToJSON (): QuestionJSON;
+	public abstract dispose (): void;
 
 	public constructor
 	(
@@ -20,6 +21,5 @@ export abstract class QuestionAbstract extends Disposable implements Serializabl
 		protected readonly tag_slide : HTMLDivElement,
 	)
 	{
-		super();
 	}
 }

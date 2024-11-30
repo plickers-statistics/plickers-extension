@@ -3,10 +3,14 @@ import { Disposable } from 'src/tools-disposable/Disposable';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
 
-export class ShowStatisticsButton extends Disposable
+export class ShowStatisticsButton implements Disposable
 {
 	private declare readonly tag_graph;
 	private declare readonly tag_count;
+
+	public dispose (): void
+	{
+	}
 
 	public constructor
 	(
@@ -14,8 +18,6 @@ export class ShowStatisticsButton extends Disposable
 		protected readonly tag_slide_choice : HTMLButtonElement,
 	)
 	{
-		super();
-
 		const parser = new DOMParser();
 
 		this.tag_graph = parser.parseFromString('<div class="slide-choice-graph"><div class="slide-choice-graph-bar" style="width: 0%;"></div></div>', 'text/html').body.firstElementChild as HTMLDivElement;
