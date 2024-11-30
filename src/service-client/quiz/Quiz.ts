@@ -1,6 +1,5 @@
 
 import { Transfer } from 'src/tools-transfer/Transfer';
-import { WebSocketTasks } from 'src/tools-websocket-tasks/WebSocketTasks';
 
 import { getQuestionHandler } from '../questions/getQuestionHandler';
 import { isTagQuestion } from '../questions/isTagQuestion';
