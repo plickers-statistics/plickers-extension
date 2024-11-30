@@ -1,13 +1,23 @@
 
+import { QuestionMultipleChoiceJSON } from './QuestionMultipleChoice';
+
+
 export class QuestionSupportCopying
 {
 	private declare readonly tag_copy;
 
 	private readonly pressed = () => {
+		const serialize = this.serializeToJSON();
+		const text      = serialize.formulationText + '\n\n' + serialize.choices
+			.map((value, index) => `${ index + 1 }. ${ value.formulationText }`)
+			.join(';\n');
+
+		// ===== ===== ===== ===== =====
+
 		const tag_textarea = document.createElement('textarea');
 		document.body.appendChild(tag_textarea);
 
-		tag_textarea.value = this.tag_reading.innerText;
+		tag_textarea.value = text;
 		tag_textarea.focus();
 		tag_textarea.select();
 
@@ -19,8 +29,8 @@ export class QuestionSupportCopying
 
 	public constructor
 	(
-		private readonly tag_container : HTMLElement,
-		private readonly tag_reading   : HTMLElement,
+		private readonly tag_container   : HTMLElement,
+		private readonly serializeToJSON : () => QuestionMultipleChoiceJSON,
 	)
 	{
 		const parser = new DOMParser();
