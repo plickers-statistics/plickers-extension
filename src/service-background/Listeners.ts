@@ -4,7 +4,7 @@ import browser from 'webextension-polyfill';
 import { Listener } from './Listener';
 
 
-export class ListenersCollection
+export class Listeners
 {
 	private readonly collection: Listener[] = [];
 

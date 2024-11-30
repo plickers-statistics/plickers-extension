@@ -1,5 +1,5 @@
 
-import { ListenersCollection } from './ListenersCollection';
+import { Listeners } from './Listeners';
 
 
-(globalThis as any).kotonai_initializer = new ListenersCollection();
+(globalThis as any).kotonai_listeners = new Listeners();
