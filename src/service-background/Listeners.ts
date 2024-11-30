@@ -1,5 +1,5 @@
 
-import browser from 'webextension-polyfill';
+import { Runtime, runtime } from 'webextension-polyfill';
 
 import { Listener } from './Listener';
 
@@ -14,7 +14,7 @@ export class Listeners
 		this.collection.splice(index, 1);
 	}
 
-	private onConnect (connection: browser.Runtime.Port): void
+	private onConnect (connection: Runtime.Port): void
 	{
 		const listener = new Listener(connection);
 
@@ -25,6 +25,6 @@ export class Listeners
 
 	public constructor ()
 	{
-		browser.runtime.onConnect.addListener(connection => this.onConnect(connection));
+		runtime.onConnect.addListener(connection => this.onConnect(connection));
 	}
 }
