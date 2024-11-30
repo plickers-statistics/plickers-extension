@@ -14,10 +14,10 @@ export function getClassRoomJSON (tag_playing: HTMLDivElement): ClassRoomDTO
 	// ===== ===== ===== ===== =====
 
 	// plickers использует localStorage
-	const session_text = localStorage.getItem('session') || '{}';
+	const session_text = localStorage.getItem('session') || '';
 	const session_json = JSON.parse(session_text);
 
-	for (const authorization of session_json.authorizations || [])
+	for (const authorization of session_json.authorizations)
 	{
 		const class_room              = authorization.section;
 		const class_room_id           = class_room.id;
