@@ -1,8 +1,10 @@
 
+import { Disposable } from 'src/tools-disposable/Disposable';
+
 import { QuestionMultipleChoiceJSON } from './QuestionMultipleChoice';
 
 
-export class QuestionSupportCopying
+export class QuestionSupportCopying implements Disposable
 {
 	private declare readonly tag_copy;
 

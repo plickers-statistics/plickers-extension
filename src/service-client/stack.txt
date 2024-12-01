@@ -6,9 +6,9 @@ main
          -> getQuestionHandler
 
 getQuestionHandler
--> QuestionMultipleChoice <- QuestionAbstract  <- (interfaces) Serializable, Disposable
-   -> QuestionSupportCopying
-   -> SelectionButtons                         <- (interfaces) Serializable, Disposable
-      -> SelectionButton  <- MutationListener  <- (interfaces) Serializable, Disposable
-         -> ShowStatisticsButton               <- (interfaces) Disposable
-         -> ButtonPressListener                <- (interfaces) Serializable, Disposable
+-> QuestionMultipleChoice <- QuestionAbstract <- (interfaces) Serializable, Disposable
+   -> QuestionSupportCopying                  <- (interfaces) Disposable
+   -> SelectionButtons                        <- (interfaces) Serializable, Disposable
+      -> SelectionButton  <- MutationListener <- (interfaces) Serializable, Disposable
+         -> ShowStatisticsButton              <- (interfaces) Disposable
+         -> ButtonPressListener               <- (interfaces) Serializable, Disposable
