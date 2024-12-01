@@ -16,7 +16,7 @@ export abstract class MutationListener implements Disposable
 		}
 	}
 
-	protected readonly listener = new MutationObserver(mutations => this.filterMutations(mutations));
+	protected readonly listener = new MutationObserver(this.filterMutations.bind(this));
 
 	public dispose (): void
 	{

@@ -51,5 +51,5 @@ export abstract class TransferListener
 		return safeCallback;
 	}
 
-	public readonly unbind = this.events.removeListener;
+	public readonly unbind = this.events.removeListener.bind(this.events);
 }

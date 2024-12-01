@@ -12,8 +12,8 @@ export class SelectionButton extends MutationListener implements Serializable
 	private readonly show_statistics = new ShowStatisticsButton(this.transfer, this.tag_slide_choice);
 	private readonly press_listener  = new ButtonPressListener(this.transfer, this.tag_slide_choice);
 
-	public readonly showVotes       = (data: any) => this.show_statistics.showVotes(data);
-	public readonly serializeToJSON = () => this.press_listener.serializeToJSON();
+	public readonly showVotes       = this.show_statistics.showVotes.bind(this.show_statistics);
+	public readonly serializeToJSON = this.press_listener.serializeToJSON.bind(this.press_listener);
 	public readonly identifier      = this.press_listener.identifier;
 
 	protected override filterMutations (): void

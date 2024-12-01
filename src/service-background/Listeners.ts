@@ -25,6 +25,6 @@ export class Listeners
 
 	public constructor ()
 	{
-		runtime.onConnect.addListener(connection => this.onConnect(connection));
+		runtime.onConnect.addListener(this.onConnect.bind(this));
 	}
 }

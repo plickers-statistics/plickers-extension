@@ -23,7 +23,7 @@ export class QuestionMultipleChoice extends QuestionAbstract
 	private readonly tag_slide_choices = this.tag_slide.querySelectorWithCheck('div.slide-choices', HTMLDivElement);
 	private readonly choices           = new SelectionButtons(this.transfer, this.tag_slide_choices);
 
-	private readonly support_copying = new QuestionSupportCopying(this.tag_slide_body, () => this.serializeToJSON());
+	private readonly support_copying = new QuestionSupportCopying(this.tag_slide_body, this.serializeToJSON.bind(this));
 
 	public override serializeToJSON (): QuestionMultipleChoiceJSON
 	{
