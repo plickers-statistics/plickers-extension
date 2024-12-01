@@ -1,16 +1,10 @@
 
 import { TransferClientEvents } from './TransferEvents';
-import { TransferListener } from './TransferListener';
+import { TransferPing } from './TransferPing';
 
 
-export class Transfer extends TransferListener
+export class Transfer extends TransferPing
 {
-	public dispose (): void
-	{
-		this.connection.disconnect();
-		clearInterval(this.ping);
-	}
-
 	public send <TKey extends keyof TransferClientEvents>(type: TKey, data: TransferClientEvents[TKey]): void
 	{
 		const option = { type, data };
