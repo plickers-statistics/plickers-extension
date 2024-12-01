@@ -19,7 +19,7 @@ export class ButtonPressListener implements Serializable, Disposable
 	private readonly tag_slide_choice_text = this.tag_slide_choice.querySelectorWithCheck('div.slide-choice-content', HTMLDivElement);
 
 	private readonly formulationHTML = this.tag_slide_choice_text.innerHTML;
-	private readonly formulationText = this.tag_slide_choice_text.textContent;
+	private readonly formulationText = this.tag_slide_choice_text.textContent || '';
 	public  readonly identifier      = getIdentifier(this.formulationHTML);
 
 	// ===== ===== ===== ===== =====

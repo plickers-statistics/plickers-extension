@@ -36,6 +36,6 @@ export class ShowStatisticsButton implements Disposable
 	public showVotes (data: { percentage: number, votes: number }): void
 	{
 		(this.tag_graph.querySelector('div.slide-choice-graph-bar') as HTMLDivElement).style.width = data.percentage + '%';
-		this.tag_count.innerText = data.votes.toString();
+		this.tag_count.textContent = data.votes.toString();
 	}
 }
