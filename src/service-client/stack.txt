@@ -1,8 +1,9 @@
 
 main
--> Lobby        <- MutationListener <- (interfaces) Disposable
-   -> ClassRoom <- MutationListener <- (interfaces) Disposable
-      -> Quiz   <- MutationListener <- (interfaces) Disposable
+-> Lobby                             <- MutationListener <- (interfaces) Disposable
+   -> ClassRoom                      <- MutationListener <- (interfaces) Disposable
+      -> Quiz                        <- MutationListener <- (interfaces) Disposable
+         -> Transfer <- TransferPing <- TransferListener <- (interfaces) Disposable
          -> getQuestionHandler
 
 getQuestionHandler
