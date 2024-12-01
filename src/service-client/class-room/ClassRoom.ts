@@ -19,6 +19,12 @@ export class ClassRoom extends MutationListener
 		{
 			this.quiz = new Quiz(tag_playing);
 		}
+		else
+		{
+			// При закрытии окна с комнатой класса
+			// 2 раза вызывается dispose в 'restart' и 'dispose'
+			delete this.quiz;
+		}
 	}
 
 	protected override filterMutations (): void
