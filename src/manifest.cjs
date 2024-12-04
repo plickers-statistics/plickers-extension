@@ -5,7 +5,9 @@ module.exports = {
 	description : 'Собирает и выводит статистику всем желающим',
 
 	version : '1.3',
-	icons   : {},
+	icons   : {
+		128 : 'icons/128x128@favicon.png',
+	},
 
 	manifest_version: 3,
 	action: {

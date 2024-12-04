@@ -1,5 +1,6 @@
 
 const GenerateJsonFromJsPlugin = require('generate-json-from-js-webpack-plugin');
+const CopyPlugin               = require('copy-webpack-plugin');
 const webpack                  = require('webpack');
 const path                     = require('path');
 
@@ -10,6 +11,8 @@ const folders = {
 
 	build  : path.resolve(__dirname, 'build'),
 	source : path.resolve(__dirname, 'src'),
+
+	icons : path.resolve(__dirname, 'icons'),
 };
 
 const files = {
@@ -27,6 +30,12 @@ module.exports = {
 		new GenerateJsonFromJsPlugin({
 			filename : 'manifest.json',
 			path     : files.manifest
+		}),
+
+		new CopyPlugin({
+			patterns: [
+				{ from: folders.icons, to: 'icons' },
+			]
 		}),
 	],
 
