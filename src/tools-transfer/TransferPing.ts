@@ -4,7 +4,10 @@ import { TransferListener } from './TransferListener';
 
 export abstract class TransferPing extends TransferListener
 {
-	private readonly ping_identifier = setInterval(() => this.connection.postMessage({ type: 'ping' }), 10_000);
+	private readonly ping_identifier = setInterval(
+		() => this.connection.postMessage({ type: 'ping' }),
+		10_000,
+	);
 
 	public constructor (...options: ConstructorParameters<typeof TransferListener>)
 	{
