@@ -1,7 +1,7 @@
 
 import { Disposable } from 'src/tools-disposable/Disposable';
 
-import { QuestionMultipleChoiceJSON } from './QuestionMultipleChoice';
+import { QuestionMultipleChoiceJSON } from '../questions/QuestionMultipleChoice';
 
 
 export class QuestionSupportCopying implements Disposable

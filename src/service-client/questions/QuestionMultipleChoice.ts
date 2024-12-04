@@ -1,11 +1,12 @@
 
 import { getIdentifier } from 'src/tools-types/String';
 
+import { QuestionSupportCopying } from '../menu/QuestionSupportCopying';
+
 import { SelectionButtonJSON } from '../selection-buttons/button/ButtonPressListener';
 import { SelectionButtons } from '../selection-buttons/SelectionButtons';
 
 import { QuestionJSON, QuestionAbstract } from './QuestionAbstract';
-import { QuestionSupportCopying } from './QuestionSupportCopying';
 
 
 export interface QuestionMultipleChoiceJSON extends QuestionJSON
