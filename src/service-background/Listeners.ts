@@ -12,7 +12,7 @@ export class Listeners
 	{
 		const index = this.collection.findIndex(value => value === listener);
 
-		console.debug('CLOSED => ' + index, listener);
+		console.debug('CLOSED => ' + (index + 1), listener);
 		this.collection.splice(index, 1);
 	}
 
@@ -27,7 +27,8 @@ export class Listeners
 
 		listener.addListener('closed', closed);
 
-		this.collection.push(listener);
+		const index = this.collection.push(listener);
+		console.debug('OPENED => ' + index, listener);
 	}
 
 	public constructor ()
