@@ -4,7 +4,7 @@ module.exports = {
 	name        : 'plickers_statistics',
 	description : 'Собирает и выводит статистику всем желающим',
 
-	version : '1.0.0',
+	version : '1.3',
 	icons   : {},
 
 	manifest_version: 3,
