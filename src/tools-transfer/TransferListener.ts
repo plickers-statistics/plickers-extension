@@ -25,7 +25,9 @@ export abstract class TransferListener implements Disposable
 
 		connection.onDisconnect.addListener(() => {
 			console.debug('[PORT | Background => Client] CLOSE');
+
 			this.is_connected.state = false;
+			this.dispose();
 		});
 
 		connection.onMessage.addListener(message => {
@@ -39,7 +41,10 @@ export abstract class TransferListener implements Disposable
 	public dispose (): void
 	{
 		this.events.removeAllListeners();
-		this.connection.disconnect();
+
+		// [FIXED] Uncaught Error: Extension context invalidated.
+		this.is_connected.state && this.connection.disconnect();
+		this.is_connected.state = false;
 	}
 
 	// ===== ===== ===== ===== =====

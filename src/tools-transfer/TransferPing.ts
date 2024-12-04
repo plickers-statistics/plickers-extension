@@ -9,13 +9,6 @@ export abstract class TransferPing extends TransferListener
 		10_000,
 	);
 
-	public constructor (...options: ConstructorParameters<typeof TransferListener>)
-	{
-		super(...options);
-
-		this.connection.onDisconnect.addListener(() => clearInterval(this.ping_identifier));
-	}
-
 	public override dispose (): void
 	{
 		super.dispose();
