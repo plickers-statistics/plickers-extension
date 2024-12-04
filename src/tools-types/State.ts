@@ -15,7 +15,7 @@ abstract class StateBase
 
 	// ===== ===== ===== ===== =====
 
-	private declare _state: boolean;
+	private _state ?: boolean;
 
 	public set state (value: boolean)
 	{
@@ -29,7 +29,7 @@ abstract class StateBase
 		this.events.emit('refresh');
 	}
 
-	public get state (): boolean
+	public get state (): boolean | undefined
 	{
 		return this._state;
 	}
