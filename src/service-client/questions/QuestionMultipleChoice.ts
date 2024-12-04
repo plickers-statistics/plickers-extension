@@ -10,7 +10,7 @@ import { QuestionSupportCopying } from './QuestionSupportCopying';
 
 export interface QuestionMultipleChoiceJSON extends QuestionJSON
 {
-	choices: SelectionButtonJSON[];
+	options: SelectionButtonJSON[];
 }
 
 export class QuestionMultipleChoice extends QuestionAbstract
@@ -21,7 +21,7 @@ export class QuestionMultipleChoice extends QuestionAbstract
 	private readonly identifier      = getIdentifier(this.formulationHTML);
 
 	private readonly tag_slide_choices = this.tag_slide.querySelectorWithCheck('div.slide-choices', HTMLDivElement);
-	private readonly choices           = new SelectionButtons(this.transfer, this.tag_slide_choices);
+	private readonly options           = new SelectionButtons(this.transfer, this.tag_slide_choices);
 
 	private readonly support_copying = new QuestionSupportCopying(this.tag_slide_body, this.serializeToJSON.bind(this));
 
@@ -32,13 +32,13 @@ export class QuestionMultipleChoice extends QuestionAbstract
 			formulationText : this.formulationText,
 			identifier      : this.identifier,
 
-			choices: this.choices.serializeToJSON()
+			options: this.options.serializeToJSON()
 		};
 	}
 
 	public override dispose (): void
 	{
 		this.support_copying.dispose();
-		this.choices.dispose();
+		this.options.dispose();
 	}
 }

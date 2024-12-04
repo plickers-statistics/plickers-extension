@@ -10,7 +10,7 @@ export class QuestionSupportCopying implements Disposable
 
 	private readonly pressed = () => {
 		const serialize = this.serializeToJSON();
-		const text      = serialize.formulationText + '\n\n' + serialize.choices
+		const text      = serialize.formulationText + '\n\n' + serialize.options
 			.map((value, index) => `${ index + 1 }. ${ value.formulationText }`)
 			.join(';\n');
 
