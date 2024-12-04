@@ -4,6 +4,7 @@ import { runtime } from 'webextension-polyfill';
 
 import { Disposable } from 'src/tools-disposable/Disposable';
 import { isPackageDTO } from 'src/tools-DTOs/PackageDTO';
+import { State } from 'src/tools-types/State';
 
 import { TransferServerEvents } from './TransferEvents';
 import { TypedChecker, TypedCallback } from './Types';
@@ -13,6 +14,8 @@ export abstract class TransferListener implements Disposable
 {
 	private readonly events = new EventEmitter();
 
+	public readonly is_connected = new State();
+
 	public constructor
 	(
 		protected readonly connection = runtime.connect()
@@ -20,10 +23,17 @@ export abstract class TransferListener implements Disposable
 	{
 		this.events.addListener('notification', message => alert(message));
 
+		connection.onDisconnect.addListener(() => {
+			console.debug('[PORT | Background => Client] CLOSE');
+			this.is_connected.state = false;
+		});
+
 		connection.onMessage.addListener(message => {
 			console.debug('[PORT | Background => Client] message', message);
 			isPackageDTO(message) && this.events.emit(message.type, message.data);
 		});
+
+		this.is_connected.state = true;
 	}
 
 	public dispose (): void
