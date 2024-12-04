@@ -11,14 +11,14 @@ export class Listeners
 	private onDisconnect (listener: Listener): void
 	{
 		const index = this.collection.findIndex(value => value === listener);
-		this.collection.splice(index, 1);
+		index >= 0 && this.collection.splice(index, 1);
 	}
 
 	private onConnect (connection: Runtime.Port): void
 	{
 		const listener = new Listener(connection);
 
-		connection.onDisconnect.addListener(() => this.onDisconnect(listener));
+		listener.addListener('closed', () => this.onDisconnect(listener));
 
 		this.collection.push(listener);
 	}
