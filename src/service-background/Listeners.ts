@@ -8,23 +8,30 @@ export class Listeners
 {
 	private readonly collection: Listener[] = [];
 
-	private onDisconnect (listener: Listener): void
+	private closed (listener: Listener): void
 	{
 		const index = this.collection.findIndex(value => value === listener);
-		index >= 0 && this.collection.splice(index, 1);
+
+		console.debug('CLOSED => ' + index, listener);
+		this.collection.splice(index, 1);
 	}
 
-	private onConnect (connection: Runtime.Port): void
+	private connected (connection: Runtime.Port): void
 	{
 		const listener = new Listener(connection);
 
-		listener.addListener('closed', () => this.onDisconnect(listener));
+		const closed = () => {
+			listener.removeListener('closed', closed);
+			this.closed(listener);
+		};
+
+		listener.addListener('closed', closed);
 
 		this.collection.push(listener);
 	}
 
 	public constructor ()
 	{
-		runtime.onConnect.addListener(this.onConnect.bind(this));
+		runtime.onConnect.addListener(this.connected.bind(this));
 	}
 }

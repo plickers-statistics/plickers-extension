@@ -15,7 +15,6 @@ export class Listener extends EventEmitter<ListenerEvents>
 	private readonly websocket = new WebSocketTasks('ws://78.29.34.5:3002/api/websocket');
 
 	private readonly close = () => {
-		console.debug('CLOSE', { port: this.connection, websocket: this.websocket });
 		this.emit('closed');
 
 		this.connection.onDisconnect.removeListener(this.close);
