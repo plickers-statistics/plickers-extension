@@ -1,5 +1,6 @@
 
 import { ClassRoomDTO } from 'src/tools-DTOs/ClassRoomDTO';
+import { ExtensionEnvironment } from 'src/tools-environment/ExtensionEnvironment';
 
 
 export function getClassRoomJSON (tag_playing: HTMLDivElement): ClassRoomDTO
@@ -52,7 +53,7 @@ export function getClassRoomJSON (tag_playing: HTMLDivElement): ClassRoomDTO
 					first_name : student_first_name,
 				},
 
-				version: '1.3',
+				version: ExtensionEnvironment.VERSION,
 			};
 		}
 	}

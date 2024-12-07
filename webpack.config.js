@@ -43,7 +43,11 @@ const getConfiguration = () => ({
 		}),
 
 		new DefinePlugin({
+			// ServerEnvironment
 			WEBSOCKET_ADDRESS: JSON.stringify(process.env.WEBSOCKET_ADDRESS),
+
+			// ExtensionEnvironment
+			VERSION: JSON.stringify(process.env.VERSION),
 		}),
 	],
 
