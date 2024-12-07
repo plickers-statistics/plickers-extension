@@ -7,11 +7,7 @@ export class WebSocketTasks extends WebSocket
 
 	private sendQueue (): void
 	{
-		for (const options of this.queue)
-		{
-			this.send(...options);
-		}
-
+		this.queue.forEach(options => this.send(...options));
 		this.queue.length = 0;
 	}
 
