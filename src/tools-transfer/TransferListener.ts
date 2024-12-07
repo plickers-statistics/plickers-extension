@@ -2,7 +2,6 @@
 import { EventEmitter } from 'events';
 import { runtime } from 'webextension-polyfill';
 
-import { Disposable } from 'src/tools-disposable/Disposable';
 import { isPackageDTO } from 'src/tools-DTOs/PackageDTO';
 import { State } from 'src/tools-types/State';
 
@@ -27,7 +26,7 @@ export abstract class TransferListener implements Disposable
 			console.debug('[PORT | Background => Client] CLOSE');
 
 			this.is_connected.state = false;
-			this.dispose();
+			this[Symbol.dispose]();
 		});
 
 		connection.onMessage.addListener(message => {
@@ -38,7 +37,7 @@ export abstract class TransferListener implements Disposable
 		this.is_connected.state = true;
 	}
 
-	public dispose (): void
+	public [Symbol.dispose] (): void
 	{
 		this.events.removeAllListeners();
 

@@ -1,5 +1,5 @@
 
-import { Disposable } from 'src/tools-disposable/Disposable';
+import { AutomaticallyDisposable } from 'src/tools-disposable/AutomaticallyDisposable';
 import { SerializableJSON, Serializable } from 'src/tools-serializable/Serializable';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
@@ -11,10 +11,14 @@ export interface QuestionJSON extends SerializableJSON
 	identifier      : number;
 }
 
-export abstract class QuestionAbstract implements Serializable, Disposable
+export abstract class QuestionAbstract extends AutomaticallyDisposable implements Serializable
 {
+	protected override get ignored_dispose_properties (): string[]
+	{
+		return [ 'transfer' ];
+	}
+
 	public abstract serializeToJSON (): QuestionJSON;
-	public abstract dispose (): void;
 
 	public constructor
 	(
@@ -22,5 +26,6 @@ export abstract class QuestionAbstract implements Serializable, Disposable
 		protected readonly tag_slide : HTMLDivElement,
 	)
 	{
+		super();
 	}
 }

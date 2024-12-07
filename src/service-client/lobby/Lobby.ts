@@ -7,7 +7,7 @@ import { isTagClassRoom } from '../class-room/isTagClassRoom';
 
 export class Lobby extends MutationListener
 {
-	private class_room ?: ClassRoom;
+	private class_room ?: ClassRoom = undefined;
 
 	protected override filterMutation (mutation: MutationRecord): void
 	{
@@ -26,20 +26,12 @@ export class Lobby extends MutationListener
 		{
 			if (isTagClassRoom(removedNode))
 			{
-				this.class_room?.dispose();
-				delete this.class_room;
+				this.class_room?.[Symbol.dispose]();
+				this.class_room = undefined;
 
 				break;
 			}
 		}
-	}
-
-	public override dispose (): void
-	{
-		super.dispose();
-
-		this.class_room?.dispose();
-		delete this.class_room;
 	}
 
 	public constructor

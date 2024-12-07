@@ -1,6 +1,4 @@
 
-import { Disposable } from 'src/tools-disposable/Disposable';
-
 import { QuestionMultipleChoiceJSON } from '../questions/QuestionMultipleChoice';
 
 
@@ -43,7 +41,7 @@ export class QuestionSupportCopying implements Disposable
 		this.tag_container.appendChild(this.tag_copy);
 	}
 
-	public dispose (): void
+	public [Symbol.dispose] (): void
 	{
 		this.tag_copy.removeEventListener('click', this.pressed);
 		this.tag_copy.remove();

@@ -1,15 +1,15 @@
 
 main
--> Lobby                             <- MutationListener <- (interfaces) Disposable
-   -> ClassRoom                      <- MutationListener <- (interfaces) Disposable
-      -> Quiz                        <- MutationListener <- (interfaces) Disposable
-         -> Transfer <- TransferPing <- TransferListener <- (interfaces) Disposable
+-> Lobby                             <- MutationListener <- AutomaticallyDisposable <- (interfaces) Disposable
+   -> ClassRoom                      <- MutationListener <- AutomaticallyDisposable <- (interfaces) Disposable
+      -> Quiz                        <- MutationListener <- AutomaticallyDisposable <- (interfaces) Disposable
+         -> Transfer <- TransferPing <- TransferListener <- AutomaticallyDisposable <- (interfaces) Disposable
          -> getQuestionHandler
 
 getQuestionHandler
 -> QuestionMultipleChoice <- QuestionAbstract <- (interfaces) Serializable, Disposable
    -> QuestionSupportCopying                  <- (interfaces) Disposable
    -> SelectionButtons                        <- (interfaces) Serializable, Disposable
-      -> SelectionButton  <- MutationListener <- (interfaces) Serializable, Disposable
+      -> SelectionButton  <- MutationListener <- AutomaticallyDisposable <- (interfaces) Serializable, Disposable
          -> ShowStatisticsButton              <- (interfaces) Disposable
          -> ButtonPressListener               <- (interfaces) Serializable, Disposable

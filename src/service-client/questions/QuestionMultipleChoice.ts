@@ -38,12 +38,4 @@ export class QuestionMultipleChoice extends QuestionAbstract
 			options: this.options.serializeToJSON()
 		};
 	}
-
-	public override dispose (): void
-	{
-		this.connection_status.dispose();
-		this.support_copying.dispose();
-
-		this.options.dispose();
-	}
 }

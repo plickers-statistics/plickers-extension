@@ -1,5 +1,4 @@
 
-import { Disposable } from 'src/tools-disposable/Disposable';
 import { Serializable } from 'src/tools-serializable/Serializable';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
@@ -39,15 +38,11 @@ export class SelectionButtons implements Serializable, Disposable
 		this.AnswersCallback = transfer.bind('answers_recalculated', (obj: unknown): obj is any => true, this.AnswersRecalculated);
 	}
 
-	public dispose (): void
+	public [Symbol.dispose] (): void
 	{
 		this.transfer.unbind('answers_recalculated', this.AnswersCallback);
 
-		for (const selection of this.collection)
-		{
-			selection.dispose();
-		}
-
+		this.collection.forEach(selection => selection[Symbol.dispose]());
 		this.collection.length = 0;
 	}
 }

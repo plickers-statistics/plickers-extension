@@ -1,5 +1,4 @@
 
-import { Disposable } from 'src/tools-disposable/Disposable';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
 
@@ -8,8 +7,10 @@ export class ShowStatisticsButton implements Disposable
 	private declare readonly tag_graph;
 	private declare readonly tag_count;
 
-	public dispose (): void
+	public [Symbol.dispose] (): void
 	{
+		this.tag_graph.remove();
+		this.tag_count.remove();
 	}
 
 	public constructor

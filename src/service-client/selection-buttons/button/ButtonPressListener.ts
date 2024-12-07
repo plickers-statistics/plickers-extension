@@ -1,5 +1,4 @@
 
-import { Disposable } from 'src/tools-disposable/Disposable';
 import { SerializableJSON, Serializable } from 'src/tools-serializable/Serializable';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
@@ -61,7 +60,7 @@ export class ButtonPressListener implements Serializable, Disposable
 		};
 	}
 
-	public dispose (): void
+	public [Symbol.dispose] (): void
 	{
 		this.is_listen.events.removeListener('refresh', this.updateClickListener);
 		this.tag_slide_choice.removeEventListener('click', this.clickHandler);

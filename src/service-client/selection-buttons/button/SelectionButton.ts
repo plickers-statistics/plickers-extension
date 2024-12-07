@@ -16,6 +16,11 @@ export class SelectionButton extends MutationListener implements Serializable
 	public readonly serializeToJSON = this.press_listener.serializeToJSON.bind(this.press_listener);
 	public readonly identifier      = this.press_listener.identifier;
 
+	protected override get ignored_dispose_properties (): string[]
+	{
+		return [ 'transfer' ];
+	}
+
 	protected override filterMutations (): void
 	{
 		this.show_statistics.mutationsListener();
@@ -37,11 +42,5 @@ export class SelectionButton extends MutationListener implements Serializable
 			attributeOldValue : true,
 			attributes        : true
 		});
-	}
-
-	public dispose (): void
-	{
-		this.show_statistics.dispose();
-		this.press_listener.dispose();
 	}
 }

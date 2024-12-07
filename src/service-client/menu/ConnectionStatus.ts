@@ -1,5 +1,4 @@
 
-import { Disposable } from 'src/tools-disposable/Disposable';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
 
@@ -63,7 +62,7 @@ export class ConnectionStatus implements Disposable
 		tag_slide.appendChild(this.tag_status);
 	}
 
-	public dispose (): void
+	public [Symbol.dispose] (): void
 	{
 		this.transfer.is_connected.events.removeListener('refresh', this.refresh.bind(this));
 		this.tag_status.remove();

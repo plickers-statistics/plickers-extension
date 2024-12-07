@@ -11,15 +11,15 @@ import { getClassRoomJSON } from './getClassRoomJSON';
 
 export class Quiz extends MutationListener
 {
-	private readonly transfer        = new Transfer();
 	private readonly class_room_info = getClassRoomJSON(this.tag_playing);
+	private readonly transfer        = new Transfer();
 
-	private question ?: QuestionAbstract;
+	private question ?: QuestionAbstract = undefined;
 
 	private close (): void
 	{
-		this.question?.dispose();
-		delete this.question;
+		this.question?.[Symbol.dispose]();
+		this.question = undefined;
 	}
 
 	private open (tag_question_container: HTMLDivElement): void
@@ -49,14 +49,6 @@ export class Quiz extends MutationListener
 				this.open(addedNode);
 			}
 		}
-	}
-
-	public override dispose (): void
-	{
-		super.dispose();
-
-		this.transfer.dispose();
-		this.close();
 	}
 
 	public constructor

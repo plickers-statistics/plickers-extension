@@ -1,8 +1,8 @@
 
-import { Disposable } from 'src/tools-disposable/Disposable';
+import { AutomaticallyDisposable } from 'src/tools-disposable/AutomaticallyDisposable';
 
 
-export abstract class MutationListener implements Disposable
+export abstract class MutationListener extends AutomaticallyDisposable
 {
 	protected filterMutation (mutation: MutationRecord): void
 	{
@@ -18,8 +18,10 @@ export abstract class MutationListener implements Disposable
 
 	protected readonly listener = new MutationObserver(this.filterMutations.bind(this));
 
-	public dispose (): void
+	public override [Symbol.dispose] (): void
 	{
+		super[Symbol.dispose]();
+
 		this.listener.disconnect();
 	}
 }

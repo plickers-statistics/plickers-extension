@@ -9,9 +9,9 @@ export abstract class TransferPing extends TransferListener
 		10_000,
 	);
 
-	public override dispose (): void
+	public override [Symbol.dispose] (): void
 	{
-		super.dispose();
+		super[Symbol.dispose]();
 
 		clearInterval(this.ping_identifier);
 	}
