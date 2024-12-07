@@ -7,7 +7,7 @@ main
          -> getQuestionHandler
 
 getQuestionHandler
--> QuestionMultipleChoice <- QuestionAbstract <- (interfaces) Serializable, Disposable
+-> QuestionMultipleChoice <- QuestionAbstract <- AutomaticallyDisposable <- (interfaces) Serializable, Disposable
    -> QuestionSupportCopying                  <- (interfaces) Disposable
    -> SelectionButtons                        <- (interfaces) Serializable, Disposable
       -> SelectionButton  <- MutationListener <- AutomaticallyDisposable <- (interfaces) Serializable, Disposable
