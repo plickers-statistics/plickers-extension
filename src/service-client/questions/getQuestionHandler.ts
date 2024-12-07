@@ -14,7 +14,7 @@ export function getQuestionHandler (transfer: Transfer, tag_slide: HTMLDivElemen
 	 * slide notranslate slide--static slide--template--bodyCenter slide--noDeviceSelectedChoice
 	 * slide notranslate slide--static slide--template--bodyCenterChoicesMedia slide--noDeviceSelectedChoice
 	 */
-	switch (tag_slide.classList[3])
+	switch (tag_slide.classList.item(3))
 	{
 		case 'slide--template--bodyLeft':
 		case 'slide--template--bodyCenter':
