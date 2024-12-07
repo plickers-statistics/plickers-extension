@@ -20,7 +20,7 @@ export class SelectionButtons implements Serializable, Disposable
 			option.showVotes(find_answer || {
 				percentage : 0,
 				votes      : 0,
-			})
+			});
 		}
 	};
 
