@@ -2,17 +2,21 @@
 const GenerateJsonFromJsPlugin = require('generate-json-from-js-webpack-plugin');
 const CopyPlugin               = require('copy-webpack-plugin');
 const webpack                  = require('webpack');
+const dotenv                   = require('dotenv');
 const path                     = require('path');
+
+const DefinePlugin = webpack.DefinePlugin;
 
 
 const folders = {
+	icons : path.resolve(__dirname, 'icons'),
+	env   : path.resolve(__dirname, 'env'),
+
 	declarations : path.resolve(__dirname, 'declarations'),
 	additions    : path.resolve(__dirname, 'additions'),
 
 	build  : path.resolve(__dirname, 'build'),
 	source : path.resolve(__dirname, 'src'),
-
-	icons : path.resolve(__dirname, 'icons'),
 };
 
 const files = {
@@ -24,8 +28,8 @@ const files = {
 	client     : path.resolve(folders.source, 'service-client',     'main.ts'),
 };
 
-/** @type { webpack.Configuration } */
-module.exports = {
+/** @returns { webpack.Configuration } */
+const getConfiguration = () => ({
 	plugins: [
 		new GenerateJsonFromJsPlugin({
 			filename : 'manifest.json',
@@ -36,6 +40,10 @@ module.exports = {
 			patterns: [
 				{ from: folders.icons, to: 'icons' },
 			]
+		}),
+
+		new DefinePlugin({
+			WEBSOCKET_ADDRESS: JSON.stringify(process.env.WEBSOCKET_ADDRESS),
 		}),
 	],
 
@@ -75,4 +83,13 @@ module.exports = {
 
 	devtool : 'inline-source-map',
 	mode    : 'development'
+});
+
+module.exports = function (env, argv)
+{
+	dotenv.config({
+		path: path.resolve(folders.env, argv?.mode + '.env')
+	});
+
+	return getConfiguration();
 };

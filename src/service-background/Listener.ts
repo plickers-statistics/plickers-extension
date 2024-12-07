@@ -2,6 +2,7 @@
 import { EventEmitter } from 'events';
 import { Runtime } from 'webextension-polyfill';
 
+import { ServerEnvironment } from 'src/tools-environment/ServerEnvironment';
 import { WebSocketTasks } from 'src/tools-websocket-tasks/WebSocketTasks';
 
 
@@ -12,7 +13,7 @@ interface ListenerEvents
 
 export class Listener extends EventEmitter<ListenerEvents>
 {
-	private readonly websocket = new WebSocketTasks('ws://78.29.34.5:3002/api/websocket');
+	private readonly websocket = new WebSocketTasks(ServerEnvironment.WEBSOCKET_ADDRESS);
 
 	private readonly close = () => {
 		this.emit('closed');
