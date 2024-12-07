@@ -24,8 +24,7 @@ export class ConnectionStatus implements Disposable
 		this.tag_status.style.color = '#E91E63';
 	}
 
-	private refresh (): void
-	{
+	private readonly refresh = () => {
 		const state = this.transfer.is_connected.state;
 
 		if (typeof state === 'boolean')
@@ -38,7 +37,7 @@ export class ConnectionStatus implements Disposable
 		{
 			this.setLoading();
 		}
-	}
+	};
 
 	public constructor
 	(
@@ -56,7 +55,7 @@ export class ConnectionStatus implements Disposable
 		this.tag_status.style.fontWeight = '900';
 		this.tag_status.style.fontSize   = '1.5em';
 
-		transfer.is_connected.events.addListener('refresh', this.refresh.bind(this));
+		transfer.is_connected.events.addListener('refresh', this.refresh);
 		this.refresh();
 
 		tag_slide.appendChild(this.tag_status);
@@ -64,7 +63,7 @@ export class ConnectionStatus implements Disposable
 
 	public [Symbol.dispose] (): void
 	{
-		this.transfer.is_connected.events.removeListener('refresh', this.refresh.bind(this));
+		this.transfer.is_connected.events.removeListener('refresh', this.refresh);
 		this.tag_status.remove();
 	}
 }
