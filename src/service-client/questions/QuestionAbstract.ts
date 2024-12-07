@@ -6,6 +6,8 @@ import { Transfer } from 'src/tools-transfer/Transfer';
 
 export interface QuestionJSON extends SerializableJSON
 {
+	template : string;
+
 	formulationHTML : string;
 	formulationText : string;
 	identifier      : number;

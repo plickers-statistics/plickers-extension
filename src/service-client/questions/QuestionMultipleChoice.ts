@@ -15,9 +15,12 @@ export interface QuestionMultipleChoiceJSON extends QuestionJSON
 	options: SelectionButtonJSON[];
 }
 
+const IGNORE_LENGTH = 'slide--template--'.length;
+
 export class QuestionMultipleChoice extends QuestionAbstract
 {
 	private readonly tag_slide_body  = this.tag_slide.querySelectorWithCheck('div.slide-body', HTMLDivElement);
+	private readonly template        = this.tag_slide.classList.item(3)?.substring(IGNORE_LENGTH) || '';
 	private readonly formulationHTML = this.tag_slide_body.innerHTML;
 	private readonly formulationText = this.tag_slide_body.textContent || '';
 	private readonly identifier      = getIdentifier(this.formulationHTML);
@@ -31,6 +34,8 @@ export class QuestionMultipleChoice extends QuestionAbstract
 	public override serializeToJSON (): QuestionMultipleChoiceJSON
 	{
 		return {
+			template : this.template,
+
 			formulationHTML : this.formulationHTML,
 			formulationText : this.formulationText,
 			identifier      : this.identifier,
