@@ -12,4 +12,4 @@ getQuestionHandler
    -> SelectionButtons                        <- (interfaces) Serializable, Disposable
       -> SelectionButton  <- MutationListener <- AutomaticallyDisposable <- (interfaces) Serializable, Disposable
          -> ShowStatisticsButton              <- (interfaces) Disposable
-         -> ButtonPressListener               <- (interfaces) Serializable, Disposable
+         -> ButtonPressListener               <- (interfaces) Serializable

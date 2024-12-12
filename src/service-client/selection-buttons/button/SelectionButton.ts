@@ -21,10 +21,10 @@ export class SelectionButton extends MutationListener implements Serializable
 		return [ this.transfer ];
 	}
 
-	protected override filterMutations (): void
+	protected override filterMutation (mutation: MutationRecord): void
 	{
 		this.show_statistics.mutationsListener();
-		this.press_listener.mutationsListener();
+		this.press_listener.mutationListener(mutation);
 	}
 
 	public constructor
@@ -34,8 +34,6 @@ export class SelectionButton extends MutationListener implements Serializable
 	)
 	{
 		super();
-
-		this.filterMutations();
 
 		this.listener.observe(this.tag_slide_choice, {
 			attributeFilter   : [ 'class' ],
