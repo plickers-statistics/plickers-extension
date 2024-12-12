@@ -15,7 +15,9 @@ export class WebSocketTasks extends WebSocket
 	{
 		super(...options);
 
-		this.addEventListener('open', this.sendQueue.bind(this), { once: true });
+		this.addEventListener('open', this.sendQueue.bind(this), {
+			once: true
+		});
 	}
 
 	public override send (...options: TypeSendOptions): void
