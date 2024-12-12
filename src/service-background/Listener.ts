@@ -1,28 +1,37 @@
 
-import { EventEmitter } from 'events';
 import { Runtime } from 'webextension-polyfill';
 
 import { ServerEnvironment } from 'src/tools-environment/ServerEnvironment';
 import { WebSocketTasks } from 'src/tools-websocket-tasks/WebSocketTasks';
 
 
-interface ListenerEvents
+export class Listener
 {
-	closed: [];
-}
+	private readonly websocket  = new WebSocketTasks(ServerEnvironment.WEBSOCKET_ADDRESS);
+	private readonly identifier = performance.now();
 
-export class Listener extends EventEmitter<ListenerEvents>
-{
-	private readonly websocket = new WebSocketTasks(ServerEnvironment.WEBSOCKET_ADDRESS);
+	private declare closed_resolve : () => void;
+	public readonly closed_promise = new Promise<void>(resolve => this.closed_resolve = resolve);
 
 	private readonly close = () => {
-		this.emit('closed');
-
 		this.connection.onDisconnect.removeListener(this.close);
+
 		this.websocket.removeEventListener('close', this.close);
+		this.websocket.removeEventListener('open', this.open);
 
 		this.connection.disconnect();
 		this.websocket.close();
+
+		console.debug('CLOSED', this.identifier);
+		this.closed_resolve();
+	};
+
+	private readonly open = () => {
+		console.debug('OPENED', this.identifier);
+
+		this.connection.postMessage({
+			type: 'opened'
+		});
 	};
 
 	public constructor
@@ -30,8 +39,6 @@ export class Listener extends EventEmitter<ListenerEvents>
 		private readonly connection: Runtime.Port
 	)
 	{
-		super();
-
 		this.connection.onDisconnect.addListener(this.close);
 		this.websocket.addEventListener('close', this.close);
 
@@ -54,5 +61,9 @@ export class Listener extends EventEmitter<ListenerEvents>
 
 			this.connection.postMessage(data);
 		});
+
+		// ===== ===== ===== ===== =====
+
+		this.websocket.addEventListener('open', this.open, { once: true });
 	}
 }

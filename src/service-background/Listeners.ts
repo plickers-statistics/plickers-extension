@@ -6,29 +6,17 @@ import { Listener } from './Listener';
 
 export class Listeners
 {
-	private readonly collection: Listener[] = [];
-
-	private closed (listener: Listener): void
-	{
-		const index = this.collection.findIndex(value => value === listener);
-
-		console.debug('CLOSED => ' + (index + 1), listener);
-		this.collection.splice(index, 1);
-	}
+	private readonly collection = new Set<Listener>();
 
 	private connected (connection: Runtime.Port): void
 	{
 		const listener = new Listener(connection);
 
-		const closed = () => {
-			listener.removeListener('closed', closed);
-			this.closed(listener);
-		};
+		listener.closed_promise.then(() => {
+			this.collection.delete(listener);
+		});
 
-		listener.addListener('closed', closed);
-
-		const index = this.collection.push(listener);
-		console.debug('OPENED => ' + index, listener);
+		this.collection.add(listener);
 	}
 
 	private interceptor (connection: Runtime.Port): void

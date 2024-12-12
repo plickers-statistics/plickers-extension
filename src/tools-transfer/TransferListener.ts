@@ -20,6 +20,7 @@ export abstract class TransferListener implements Disposable
 		protected readonly connection = runtime.connect()
 	)
 	{
+		this.events.addListener('opened',       ()      => this.is_connected.state = true);
 		this.events.addListener('notification', message => alert(message));
 
 		connection.onDisconnect.addListener(() => {
@@ -33,8 +34,6 @@ export abstract class TransferListener implements Disposable
 			console.debug('[PORT | Background => Client] message', message);
 			isPackageDTO(message) && this.events.emit(message.type, message.data);
 		});
-
-		this.is_connected.state = true;
 	}
 
 	public [Symbol.dispose] (): void
