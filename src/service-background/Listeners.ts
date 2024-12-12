@@ -31,8 +31,21 @@ export class Listeners
 		console.debug('OPENED => ' + index, listener);
 	}
 
+	private interceptor (connection: Runtime.Port): void
+	{
+		try
+		{
+			this.connected(connection);
+		}
+		catch (error)
+		{
+			connection.disconnect();
+			throw error;
+		}
+	}
+
 	public constructor ()
 	{
-		runtime.onConnect.addListener(this.connected.bind(this));
+		runtime.onConnect.addListener(this.interceptor.bind(this));
 	}
 }
