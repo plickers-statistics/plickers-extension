@@ -15,12 +15,7 @@ export class WebSocketTasks extends WebSocket
 	{
 		super(...options);
 
-		const on_opened = () => {
-			this.removeEventListener('open', on_opened);
-			this.sendQueue();
-		};
-
-		this.addEventListener('open', on_opened);
+		this.addEventListener('open', this.sendQueue.bind(this), { once: true });
 	}
 
 	public override send (...options: TypeSendOptions): void
