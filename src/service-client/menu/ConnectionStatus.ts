@@ -12,9 +12,9 @@ export class ConnectionStatus implements Disposable
 		this.tag_status.style.color = '#03A9F4';
 	}
 
-	private setConnected (): void
+	private setOpened (): void
 	{
-		this.tag_status.textContent = 'connected';
+		this.tag_status.textContent = 'opened';
 		this.tag_status.style.color = '#30C99C';
 	}
 
@@ -30,7 +30,7 @@ export class ConnectionStatus implements Disposable
 		if (typeof state === 'boolean')
 		{
 			state
-				? this.setConnected()
+				? this.setOpened()
 				: this.setClosed();
 		}
 		else
