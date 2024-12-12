@@ -9,7 +9,7 @@ export class Transfer extends TransferPing
 
 	private sendQueue (): void
 	{
-		this.queue.forEach(option => this.connection.postMessage(option));
+		this.is_connected.state && this.queue.forEach(option => this.connection.postMessage(option));
 		this.queue.length = 0;
 	}
 
@@ -20,9 +20,14 @@ export class Transfer extends TransferPing
 		console.debug('[PORT | Client => Background] message', option);
 
 		// [FIXED] Uncaught Error: Extension context invalidated.
-		this.is_connected.state
-			? this.connection.postMessage(option)
-			: this.queue.push(option);
+		if (typeof this.is_connected.state === 'boolean')
+		{
+			this.is_connected.state && this.connection.postMessage(option);
+		}
+		else
+		{
+			this.queue.push(option);
+		}
 	}
 
 	public constructor (...options: ConstructorParameters<typeof TransferPing>)
