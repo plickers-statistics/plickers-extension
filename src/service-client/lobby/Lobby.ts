@@ -9,7 +9,7 @@ export class Lobby extends MutationListener
 {
 	private class_room ?: ClassRoom = undefined;
 
-	protected override filterMutation (mutation: MutationRecord): void
+	protected override mutationListener (mutation: MutationRecord): void
 	{
 		// initialize
 		for (const addedNode of mutation.addedNodes)

@@ -21,7 +21,7 @@ export class SelectionButton extends MutationListener implements Serializable
 		return [ this.transfer ];
 	}
 
-	protected override filterMutation (mutation: MutationRecord): void
+	protected override mutationListener (mutation: MutationRecord): void
 	{
 		this.show_statistics.mutationsListener();
 		this.press_listener.mutationListener(mutation);

@@ -19,7 +19,7 @@ export class ClassRoom extends MutationListener
 			: undefined;
 	}
 
-	protected override filterMutations (): void
+	protected override mutationsListener (): void
 	{
 		this.restart();
 	}

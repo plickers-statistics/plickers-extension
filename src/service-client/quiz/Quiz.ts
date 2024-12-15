@@ -39,7 +39,7 @@ export class Quiz extends MutationListener
 	// ===== ===== ===== ===== =====
 
 	/** next question (restart) */
-	protected override filterMutation (mutation: MutationRecord): void
+	protected override mutationListener (mutation: MutationRecord): void
 	{
 		for (const addedNode of mutation.addedNodes)
 		{
