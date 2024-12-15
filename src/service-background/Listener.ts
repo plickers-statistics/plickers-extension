@@ -27,6 +27,7 @@ export class Listener
 			return;
 		}
 
+		console.debug('MESSAGE | PORT => WEBSOCKET', message);
 		this.websocket.send(json);
 	};
 
@@ -39,6 +40,7 @@ export class Listener
 			throw new TypeError(message);
 		}
 
+		console.debug('MESSAGE | WEBSOCKET => PORT', data);
 		this.port.postMessage(data);
 	};
 
