@@ -15,7 +15,7 @@ export interface QuestionJSON extends SerializableJSON
 
 export abstract class QuestionAbstract extends AutomaticallyDisposable implements Serializable
 {
-	protected override get ignored_dispose_values (): object[]
+	protected override get ignored_dispose_objects (): object[]
 	{
 		return [ this.transfer ];
 	}

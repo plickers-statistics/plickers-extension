@@ -16,7 +16,7 @@ export class SelectionButton extends MutationListener implements Serializable
 	public readonly serializeToJSON = this.press_listener.serializeToJSON.bind(this.press_listener);
 	public readonly identifier      = this.press_listener.identifier;
 
-	protected override get ignored_dispose_values (): object[]
+	protected override get ignored_dispose_objects (): object[]
 	{
 		return [ this.transfer ];
 	}
