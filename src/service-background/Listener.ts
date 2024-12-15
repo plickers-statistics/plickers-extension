@@ -39,18 +39,18 @@ export class Listener
 			throw new TypeError(message);
 		}
 
-		this.connection.postMessage(data);
+		this.port.postMessage(data);
 	};
 
 	private readonly close = () => {
-		this.connection.onDisconnect.removeListener(this.close);
-		this.connection.onMessage.removeListener(this.resend_port_to_websocket);
+		this.port.onDisconnect.removeListener(this.close);
+		this.port.onMessage.removeListener(this.resend_port_to_websocket);
 
 		this.websocket.removeEventListener('close', this.close);
 		this.websocket.removeEventListener('open', this.open);
 		this.websocket.removeEventListener('message', this.resend_websocket_to_port);
 
-		this.connection.disconnect();
+		this.port.disconnect();
 		this.websocket.close();
 
 		console.debug('CLOSED', this.identifier);
@@ -60,18 +60,18 @@ export class Listener
 	private readonly open = () => {
 		console.debug('OPENED', this.identifier);
 
-		this.connection.postMessage({
+		this.port.postMessage({
 			type: 'opened'
 		});
 	};
 
 	public constructor
 	(
-		private readonly connection: Runtime.Port
+		private readonly port: Runtime.Port
 	)
 	{
-		this.connection.onDisconnect.addListener(this.close);
-		this.connection.onMessage.addListener(this.resend_port_to_websocket);
+		this.port.onDisconnect.addListener(this.close);
+		this.port.onMessage.addListener(this.resend_port_to_websocket);
 
 		this.websocket.addEventListener('close', this.close, { once: true });
 		this.websocket.addEventListener('open', this.open, { once: true });
