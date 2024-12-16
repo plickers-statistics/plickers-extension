@@ -21,13 +21,13 @@ export function getClassRoomJSON (tag_playing: HTMLDivElement): ClassRoomDTO
 	for (const authorization of session_json.authorizations)
 	{
 		const class_room              = authorization.section;
-		const class_room_id           = class_room.id;
+		const class_room_hash         = class_room.id;
 		const class_room_name         = class_room.name;
 		const class_room_color        = class_room.color;
 		const class_room_teacher_name = class_room.teacherDisplayName;
 
 		const student            = authorization.student;
-		const student_id         = student.id;
+		const student_hash       = student.id;
 		const student_first_name = student.firstName;
 
 		// ===== ===== ===== ===== =====
@@ -43,13 +43,13 @@ export function getClassRoomJSON (tag_playing: HTMLDivElement): ClassRoomDTO
 
 			return {
 				class_room: {
-					id           : class_room_id,
+					hash         : class_room_hash,
 					name         : class_room_name,
 					teacher_name : class_room_teacher_name,
 				},
 
 				student: {
-					id         : student_id,
+					hash       : student_hash,
 					first_name : student_first_name,
 				},
 

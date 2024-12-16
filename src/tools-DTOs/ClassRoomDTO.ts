@@ -5,13 +5,13 @@ import { isObject } from 'src/tools-types/Object';
 export interface ClassRoomDTO
 {
 	class_room: {
-		id           : string;
+		hash         : string;
 		name         : string;
 		teacher_name : string;
 	};
 
 	student: {
-		id         : string;
+		hash       : string;
 		first_name : string;
 	};
 
@@ -39,11 +39,11 @@ export function isClassRoomDTO (obj: unknown): obj is ClassRoomDTO
 		return false;
 	}
 
-	return typeof class_room.id           === 'string'
+	return typeof class_room.hash         === 'string'
 		&& typeof class_room.name         === 'string'
 		&& typeof class_room.teacher_name === 'string'
 
-		&& typeof student.id         === 'string'
+		&& typeof student.hash       === 'string'
 		&& typeof student.first_name === 'string'
 
 		&& typeof obj.version === 'string';
