@@ -4,15 +4,15 @@ import { isObject } from 'src/tools-types/Object';
 
 export interface ClassRoomDTO
 {
-	class_room: {
-		hash         : string;
-		name         : string;
-		teacher_name : string;
+	classRoom: {
+		hashCode    : string;
+		name        : string;
+		teacherName : string;
 	};
 
 	student: {
-		hash       : string;
-		first_name : string;
+		hashCode  : string;
+		firstName : string;
 	};
 
 	version: string;
@@ -25,9 +25,9 @@ export function isClassRoomDTO (obj: unknown): obj is ClassRoomDTO
 		return false;
 	}
 
-	const class_room = obj.class_room;
+	const classRoom = obj.classRoom;
 
-	if (isObject(class_room) === false)
+	if (isObject(classRoom) === false)
 	{
 		return false;
 	}
@@ -39,12 +39,12 @@ export function isClassRoomDTO (obj: unknown): obj is ClassRoomDTO
 		return false;
 	}
 
-	return typeof class_room.hash         === 'string'
-		&& typeof class_room.name         === 'string'
-		&& typeof class_room.teacher_name === 'string'
+	return typeof classRoom.hashCode    === 'string'
+		&& typeof classRoom.name        === 'string'
+		&& typeof classRoom.teacherName === 'string'
 
-		&& typeof student.hash       === 'string'
-		&& typeof student.first_name === 'string'
+		&& typeof student.hashCode  === 'string'
+		&& typeof student.firstName === 'string'
 
 		&& typeof obj.version === 'string';
 }

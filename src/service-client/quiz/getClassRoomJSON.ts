@@ -42,15 +42,15 @@ export function getClassRoomJSON (tag_playing: HTMLDivElement): ClassRoomDTO
 			console.debug('class information', authorization);
 
 			return {
-				class_room: {
-					hash         : class_room_hash,
-					name         : class_room_name,
-					teacher_name : class_room_teacher_name,
+				classRoom: {
+					hashCode    : class_room_hash,
+					name        : class_room_name,
+					teacherName : class_room_teacher_name,
 				},
 
 				student: {
-					hash       : student_hash,
-					first_name : student_first_name,
+					hashCode  : student_hash,
+					firstName : student_first_name,
 				},
 
 				version: ExtensionEnvironment.VERSION,
