@@ -1,12 +1,12 @@
 
-import { isObject } from 'src/tools-types/Object';
+import { isAsyncDisposable, isDisposable } from './isDisposable';
 
 
 export abstract class AutomaticallyDisposable implements Disposable
 {
 	private disposed = false;
 
-	protected get ignored_dispose_objects (): object[]
+	protected get ignored_dispose_objects (): (AsyncDisposable | Disposable)[]
 	{
 		return [];
 	}
@@ -18,14 +18,17 @@ export abstract class AutomaticallyDisposable implements Disposable
 			return;
 		}
 
-		const property_names  = Object.getOwnPropertyNames(this);
+		const property_names  = Object.getOwnPropertyNames(this) as (keyof this)[];
 		const ignored_objects = this.ignored_dispose_objects;
 
 		for (const property_name of property_names)
 		{
-			const obj = this[property_name as keyof this];
+			const obj = this[property_name];
 
-			if (isObject(obj) === false)
+			const is_async_disposable = isAsyncDisposable(obj);
+			const is_disposable       = isDisposable(obj);
+
+			if (is_async_disposable === false && is_disposable === false)
 			{
 				continue;
 			}
@@ -35,10 +38,8 @@ export abstract class AutomaticallyDisposable implements Disposable
 				continue;
 			}
 
-			const fn_dispose = (obj as unknown as Disposable)[Symbol.dispose];
-			const is_dispose = typeof fn_dispose === 'function';
-
-			is_dispose && fn_dispose.call(obj);
+			is_async_disposable && obj[Symbol.asyncDispose].call(obj);
+			is_disposable       && obj[Symbol.dispose].call(obj);
 		}
 
 		this.disposed = true;

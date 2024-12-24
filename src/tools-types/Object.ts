@@ -1,5 +1,5 @@
 
-export interface LooseObject extends Record<string, unknown>
+export interface LooseObject extends Record<string | symbol, unknown>
 {
 }
 
