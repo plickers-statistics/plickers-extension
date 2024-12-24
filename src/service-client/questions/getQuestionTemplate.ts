@@ -1,11 +1,11 @@
 
-import { Transfer } from 'src/tools-transfer/Transfer';
-
 import { QuestionAbstract } from './QuestionAbstract';
 import { QuestionMultipleChoice } from './QuestionMultipleChoice';
 
 
-export function getQuestionHandler (transfer: Transfer, tag_slide: HTMLDivElement): QuestionAbstract
+type QuestionAbstractConstructor = new (...options: ConstructorParameters<typeof QuestionAbstract>) => QuestionAbstract;
+
+export function getQuestionTemplate (tag_slide: HTMLDivElement): QuestionAbstractConstructor
 {
 	/**
 	 * classes:
@@ -14,13 +14,15 @@ export function getQuestionHandler (transfer: Transfer, tag_slide: HTMLDivElemen
 	 * slide notranslate slide--static slide--template--bodyCenter slide--noDeviceSelectedChoice
 	 * slide notranslate slide--static slide--template--bodyCenterChoicesMedia slide--noDeviceSelectedChoice
 	 */
-	switch (tag_slide.classList.item(3))
+	const template_name = tag_slide.classList.item(3);
+
+	switch (template_name)
 	{
 		case 'slide--template--bodyLeft':
 		case 'slide--template--bodyCenter':
 		case 'slide--template--bodyCenterChoicesMedia':
-			return new QuestionMultipleChoice(transfer, tag_slide);
+			return QuestionMultipleChoice;
 	}
 
-	throw new TypeError();
+	throw new TypeError(`question template ${ template_name } unknown`);
 }

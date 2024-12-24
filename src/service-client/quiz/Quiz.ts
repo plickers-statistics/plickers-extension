@@ -2,7 +2,7 @@
 import { MutationListener } from 'src/tools-mutation/MutationListener';
 import { Transfer } from 'src/tools-transfer/Transfer';
 
-import { getQuestionHandler } from '../questions/getQuestionHandler';
+import { getQuestionTemplate } from '../questions/getQuestionTemplate';
 import { isTagQuestion } from '../questions/isTagQuestion';
 import { QuestionAbstract } from '../questions/QuestionAbstract';
 
@@ -22,18 +22,17 @@ export class Quiz extends MutationListener
 		this.question = undefined;
 	}
 
-	private open (tag_question_container: HTMLDivElement): void
+	/**
+	 * @returns Возвращается Promise, чтобы перехватить ошибку, если таковая возникла.
+	 */
+	private async open (tag_question_container: HTMLDivElement): Promise<void>
 	{
-		// При открытии следующего вопроса => доступны одновременно 2 вопроса (старый и новый).
-		// Это костыль, но другого варианта различать теги => нет.
-		const tag_slide = tag_question_container.querySelector('div.slide');
+		const tag_slide = tag_question_container.querySelectorWithCheck('div.slide', HTMLDivElement);
 
-		if (tag_slide instanceof HTMLDivElement)
-		{
-			this.question = getQuestionHandler(this.transfer, tag_slide);
+		const template = getQuestionTemplate(tag_slide);
+		this.question  = new template(this.transfer, tag_slide);
 
-			this.transfer.send('new_question', this.question.serializeToJSON());
-		}
+		this.transfer.send('new_question', this.question.serializeToJSON());
 	}
 
 	// ===== ===== ===== ===== =====
