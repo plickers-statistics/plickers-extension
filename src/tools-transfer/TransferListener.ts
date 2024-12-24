@@ -40,9 +40,14 @@ export abstract class TransferListener implements Disposable
 	{
 		this.events.removeAllListeners();
 
-		// [FIXED] Uncaught Error: Extension context invalidated.
-		this.is_connected.state && this.connection.disconnect();
-		this.is_connected.state = false;
+		if (this.is_connected.state)
+		{
+			console.debug(`[PORT | Client => Background] CLOSE`);
+
+			// [FIXED] Uncaught Error: Extension context invalidated.
+			this.connection.disconnect();
+			this.is_connected.state = false;
+		}
 	}
 
 	// ===== ===== ===== ===== =====
