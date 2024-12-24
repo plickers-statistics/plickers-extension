@@ -10,13 +10,24 @@ export class ClassRoom extends MutationListener
 
 	private restart (): void
 	{
-		const tag_playing = this.tag_playing_container.querySelector('div.nowPlaying--notScanning')
-			|| this.tag_playing_container.querySelector('div.nowPlaying--isScanning');
-
 		this.quiz?.[Symbol.dispose]();
-		this.quiz = tag_playing instanceof HTMLDivElement
-			? new Quiz(tag_playing)
-			: undefined;
+
+		const tag_playing = this.tag_playing_container.querySelectorWithCheck('div.nowPlaying', HTMLDivElement);
+		const quiz_state  = tag_playing.classList.item(1);
+
+		switch (quiz_state)
+		{
+			case 'nowPlaying--notScanning':
+			case 'nowPlaying--isScanning':
+				this.quiz = new Quiz(tag_playing);
+				return;
+
+			case 'nowPlaying--emptyState':
+				this.quiz = undefined;
+				return;
+		}
+
+		throw new RangeError(`quiz state ${ quiz_state } unknown`);
 	}
 
 	protected override mutationsListener (): void
